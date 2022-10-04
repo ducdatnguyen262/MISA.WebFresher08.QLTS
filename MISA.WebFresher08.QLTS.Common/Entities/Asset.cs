@@ -122,5 +122,11 @@ namespace MISA.WebFresher08.QLTS.Common.Entities
         /// Còn hoạt động hay không
         /// </summary>
         public Boolean active { get; set; }
+
+        /// <summary>
+        /// Hao mòn năm
+        /// </summary>
+        [IsNotNullOrEmpty("Hao mòn năm không được để trống")]
+        public double depreciation_year { get; set; }
     }
 }

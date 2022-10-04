@@ -122,7 +122,7 @@
     <comment>Tên người dùng mặc định</comment>
   </data>
   <data name="DevMsg_DeleteFailed" xml:space="preserve">
-    <value>Insert to database return 0</value>
+    <value>Delete from database return 0</value>
     <comment>Message cho dev đọc khi Delete bản ghi trong database thất bại</comment>
   </data>
   <data name="DevMsg_Exception" xml:space="preserve">
@@ -134,11 +134,11 @@
     <comment>Message cho dev đọc khi Insert bản ghi vào database thất bại</comment>
   </data>
   <data name="DevMsg_SelectFailed" xml:space="preserve">
-    <value>Insert to database return 0</value>
+    <value>Select from database return 0</value>
     <comment>Message cho dev đọc khi Select bản ghi trong database thất bại</comment>
   </data>
   <data name="DevMsg_UpdateFailed" xml:space="preserve">
-    <value>Insert to database return 0</value>
+    <value>Update to database return 0</value>
     <comment>Message cho dev đọc khi Update bản ghi vào database thất bại</comment>
   </data>
   <data name="DevMsg_ValidateFailed" xml:space="preserve">
@@ -173,12 +173,28 @@
     <value>Proc_{0}_Add</value>
     <comment>Template string cho procedure thêm 1 bản ghi</comment>
   </data>
+  <data name="Proc_BatchDelete" xml:space="preserve">
+    <value>Proc_{0}_BatchDelete</value>
+    <comment>Template string cho procedure xóa nhiều bản ghi</comment>
+  </data>
+  <data name="Proc_Delete" xml:space="preserve">
+    <value>Proc_{0}_Delete</value>
+    <comment>Template string cho procedure xóa 1 bản ghi</comment>
+  </data>
   <data name="Proc_GetAll" xml:space="preserve">
     <value>Proc_{0}_GetAll</value>
     <comment>Template string cho procedure lấy tất cả bản ghi của 1 bảng</comment>
   </data>
+  <data name="Proc_Select" xml:space="preserve">
+    <value>Proc_{0}_Select</value>
+    <comment>Template string cho procedure lấy 1 bản ghi</comment>
+  </data>
+  <data name="Proc_Update" xml:space="preserve">
+    <value>Proc_{0}_Update</value>
+    <comment>Template string cho procedure cập nhật 1 bản ghi</comment>
+  </data>
   <data name="UserMsg_DeleteFailed" xml:space="preserve">
-    <value>Thêm mới nhân viên thất bại</value>
+    <value>Xóa bản ghi thất bại</value>
     <comment>Message cho user đọc khi Delete bản ghi trong database thất bại</comment>
   </data>
   <data name="UserMsg_Exception" xml:space="preserve">
@@ -186,15 +202,15 @@
     <comment>Message cho user đọc khi Gọi API gặp exception</comment>
   </data>
   <data name="UserMsg_InsertFailed" xml:space="preserve">
-    <value>Thêm mới nhân viên thất bại</value>
+    <value>Thêm mới bản ghi thất bại</value>
     <comment>Message cho user đọc khi Insert bản ghi vào database thất bại</comment>
   </data>
   <data name="UserMsg_SelectFailed" xml:space="preserve">
-    <value>Thêm mới nhân viên thất bại</value>
+    <value>Đọc bản ghi thất bại</value>
     <comment>Message cho user đọc khi Select bản ghi trong database thất bại</comment>
   </data>
   <data name="UserMsg_UpdateFailed" xml:space="preserve">
-    <value>Thêm mới nhân viên thất bại</value>
+    <value>Sửa bản ghi thất bại</value>
     <comment>Message cho user đọc khi Update bản ghi vào database thất bại</comment>
   </data>
   <data name="UserMsg_ValidateFailed" xml:space="preserve">

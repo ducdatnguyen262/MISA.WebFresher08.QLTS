@@ -1,4 +1,6 @@
-﻿namespace MISA.WebFresher08.QLTS.Common.Entities
+﻿using MISA.WebFresher08.QLTS.Common.Attributes;
+
+namespace MISA.WebFresher08.QLTS.Common.Entities
 {
     /// <summary>
     /// Phòng ban
@@ -8,6 +10,7 @@
         /// <summary>
         /// ID phòng ban
         /// </summary>
+        [PrimaryKey]
         public Guid department_id { get; set; }
 
         /// <summary>

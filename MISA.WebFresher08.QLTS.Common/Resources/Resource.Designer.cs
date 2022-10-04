@@ -70,7 +70,7 @@ namespace MISA.WebFresher08.QLTS.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Insert to database return 0.
+        ///   Looks up a localized string similar to Delete from database return 0.
         /// </summary>
         public static string DevMsg_DeleteFailed {
             get {
@@ -97,7 +97,7 @@ namespace MISA.WebFresher08.QLTS.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Insert to database return 0.
+        ///   Looks up a localized string similar to Select from database return 0.
         /// </summary>
         public static string DevMsg_SelectFailed {
             get {
@@ -106,7 +106,7 @@ namespace MISA.WebFresher08.QLTS.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Insert to database return 0.
+        ///   Looks up a localized string similar to Update to database return 0.
         /// </summary>
         public static string DevMsg_UpdateFailed {
             get {
@@ -187,6 +187,24 @@ namespace MISA.WebFresher08.QLTS.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Proc_{0}_BatchDelete.
+        /// </summary>
+        public static string Proc_BatchDelete {
+            get {
+                return ResourceManager.GetString("Proc_BatchDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proc_{0}_Delete.
+        /// </summary>
+        public static string Proc_Delete {
+            get {
+                return ResourceManager.GetString("Proc_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Proc_{0}_GetAll.
         /// </summary>
         public static string Proc_GetAll {
@@ -196,7 +214,25 @@ namespace MISA.WebFresher08.QLTS.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thêm mới nhân viên thất bại.
+        ///   Looks up a localized string similar to Proc_{0}_Select.
+        /// </summary>
+        public static string Proc_Select {
+            get {
+                return ResourceManager.GetString("Proc_Select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proc_{0}_Update.
+        /// </summary>
+        public static string Proc_Update {
+            get {
+                return ResourceManager.GetString("Proc_Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Xóa bản ghi thất bại.
         /// </summary>
         public static string UserMsg_DeleteFailed {
             get {
@@ -214,7 +250,7 @@ namespace MISA.WebFresher08.QLTS.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thêm mới nhân viên thất bại.
+        ///   Looks up a localized string similar to Thêm mới bản ghi thất bại.
         /// </summary>
         public static string UserMsg_InsertFailed {
             get {
@@ -223,7 +259,7 @@ namespace MISA.WebFresher08.QLTS.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thêm mới nhân viên thất bại.
+        ///   Looks up a localized string similar to Đọc bản ghi thất bại.
         /// </summary>
         public static string UserMsg_SelectFailed {
             get {
@@ -232,7 +268,7 @@ namespace MISA.WebFresher08.QLTS.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thêm mới nhân viên thất bại.
+        ///   Looks up a localized string similar to Sửa bản ghi thất bại.
         /// </summary>
         public static string UserMsg_UpdateFailed {
             get {

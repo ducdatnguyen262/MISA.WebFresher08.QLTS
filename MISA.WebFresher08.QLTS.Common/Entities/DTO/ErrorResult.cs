@@ -49,6 +49,11 @@ namespace MISA.WebFresher08.QLTS.Common.Entities
             TraceId = traceId;
         }
 
+        public ErrorResult(QltsErrorCode errorCode)
+        {
+            ErrorCode = errorCode;
+        }
+
         #endregion
     }
 }
