@@ -1,10 +1,5 @@
 ﻿using MISA.WebFresher08.QLTS.Common.Entities;
 using MISA.WebFresher08.QLTS.DL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MISA.WebFresher08.QLTS.BL
 {
@@ -21,6 +16,45 @@ namespace MISA.WebFresher08.QLTS.BL
         public AssetBL (IAssetDL assetDL) : base(assetDL)
         {
             _assetDL = assetDL;
+        }
+
+        #endregion
+
+        #region Method
+
+        /// <summary>
+        /// Lấy danh sách các tài sản có chọn lọc
+        /// </summary>
+        /// <param name="keyword">Từ để tìm kiếm theo mã và tên tài sản</param>
+        /// <param name="departmentId">ID phòng ban</param>
+        /// <param name="categoryId">ID loại tài sản</param>
+        /// <param name="limit">Số bản ghi muốn lấy</param>
+        /// <param name="page">Số trang bắt đầu lấy</param>
+        /// <returns>Danh sách các tài sản sau khi chọn lọc và các giá trị khác</returns>
+        /// Created by: NDDAT (19/09/2022)
+        public PagingData<Asset> FilterAssets(string? keyword, Guid? departmentId, Guid? categoryId, int limit, int page)
+        {
+            return _assetDL.FilterAssets(keyword, departmentId, categoryId, limit, page);
+        }
+
+        /// <summary>
+        /// Sinh mã tài sản tiếp theo
+        /// </summary>
+        /// <returns>Mã tài sản tiếp theo</returns>
+        /// Cretaed by: NDDAT (01/10/2022)
+        public string NextAssetCode()
+        {
+            return _assetDL.NextAssetCode();
+        }
+
+        /// <summary>
+        /// Kiểm tra trùng mã tài sản
+        /// </summary>
+        /// <returns>Số lượng mã tài sản bị trùng</returns>
+        /// Cretaed by: NDDAT (01/10/2022)
+        public int DuplicateAssetCode(string assetCode)
+        {
+            return _assetDL.DuplicateAssetCode(assetCode);
         }
 
         #endregion
