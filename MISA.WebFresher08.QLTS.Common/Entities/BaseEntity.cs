@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace MISA.WebFresher08.QLTS.Common.Entities
 {
+    /// <summary>
+    /// Lớp cơ sở
+    /// </summary>
     public class BaseEntity
     {
         /// <summary>

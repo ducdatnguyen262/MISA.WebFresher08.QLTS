@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace MISA.WebFresher08.QLTS.DL
 {
+    /// <summary>
+    /// Chứa chuỗi kết nối tới MySQL
+    /// </summary>
     public class DataContext
     {
         /// <summary>

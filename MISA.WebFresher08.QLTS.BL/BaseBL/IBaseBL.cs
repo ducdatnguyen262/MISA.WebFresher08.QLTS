@@ -9,6 +9,8 @@ namespace MISA.WebFresher08.QLTS.BL
 {
     public interface IBaseBL<T>
     {
+        #region API Get
+
         /// <summary>
         /// Lấy danh sách toàn bộ bản ghi
         /// </summary>
@@ -25,12 +27,29 @@ namespace MISA.WebFresher08.QLTS.BL
         public T GetRecordById(Guid recordId);
 
         /// <summary>
+        /// Lấy danh sách các bản ghi theo từ khóa
+        /// </summary>
+        /// <param name="keyword">Từ để tìm kiếm bản ghi</param>
+        /// <param name="type">Loại dữ liệu được tìm kiếm</param>
+        /// <returns>Danh sách các bản ghi sau khi chọn lọc</returns>
+        /// Created by: NDDAT (05/10/2022)
+        public PagingData<T> FilterRecords(string? keyword, string type);
+
+        #endregion
+
+        #region API Insert
+
+        /// <summary>
         /// Thêm mới 1 bản ghi
         /// </summary>
         /// <param name="record">Đối tượng bản ghi cần thêm mới</param>
         /// <returns>ID của bản ghi vừa thêm. Return về Guid rỗng nếu thêm mới thất bại</returns>
         /// Cretaed by: NDDAT (28/09/2022)
         public ServiceResponse InsertRecord(T record);
+
+        #endregion
+
+        #region API Update
 
         /// <summary>
         /// Cập nhật 1 bản ghi
@@ -40,6 +59,10 @@ namespace MISA.WebFresher08.QLTS.BL
         /// <returns>Đối tượng sau khi cập nhật</returns>
         /// Cretaed by: NDDAT (28/09/2022)
         public ServiceResponse UpdateRecord(Guid recordId, T record);
+
+        #endregion
+
+        #region API Delete
 
         /// <summary>
         /// Xóa 1 bản ghi
@@ -55,6 +78,8 @@ namespace MISA.WebFresher08.QLTS.BL
         /// <param name="recordIdList">Danh sách ID các bản ghi cần xóa</param>
         /// <returns>Danh sách ID các bản ghi đã xóa</returns>
         /// Cretaed by: NDDAT (19/09/2022)
-        public List<string> DeleteMultiAssets(List<string> recordIdList);
+        public List<string> DeleteMultiRecords(List<string> recordIdList); 
+
+        #endregion
     }
 }

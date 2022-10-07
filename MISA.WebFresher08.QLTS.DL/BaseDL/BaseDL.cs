@@ -15,6 +15,8 @@ namespace MISA.WebFresher08.QLTS.DL
 {
     public class BaseDL<T> : IBaseDL<T>
     {
+        #region API Get
+
         /// <summary>
         /// Lấy danh sách toàn bộ bản ghi
         /// </summary>
@@ -34,11 +36,11 @@ namespace MISA.WebFresher08.QLTS.DL
                     commandType: System.Data.CommandType.StoredProcedure);
 
                 return records;
-            }    
+            }
         }
 
         /// <summary>
-        /// Lấy 1 tài sản theo id
+        /// Lấy 1 bản ghi theo id
         /// </summary>
         /// <param name="recordId">ID của bản ghi cần lấy</param>
         /// <returns>Bản ghi có ID được truyền vào</returns>
@@ -73,6 +75,50 @@ namespace MISA.WebFresher08.QLTS.DL
         }
 
         /// <summary>
+        /// Lấy danh sách các bản ghi theo từ khóa
+        /// </summary>
+        /// <param name="keyword">Từ để tìm kiếm bản ghi</param>
+        /// <param name="type">Loại dữ liệu được tìm kiếm</param>
+        /// <returns>Danh sách các bản ghi sau khi chọn lọc</returns>
+        /// Created by: NDDAT (05/10/2022)
+        public PagingData<T> FilterRecords(string? keyword, string type)
+        {
+            // Chuẩn bị tham số đầu vào cho procedure
+            var parameters = new DynamicParameters();
+            parameters.Add("v_Offset", 1);
+            parameters.Add("v_Limit", -1);
+            parameters.Add("v_Sort", "");
+
+            var whereConditions = new List<string>();
+            if (keyword != null) whereConditions.Add($"{type} LIKE \'%{keyword}%\'");
+            string whereClause = string.Join(" AND ", whereConditions);
+
+            parameters.Add("v_Where", whereClause);
+
+            // Khởi tạo kết nối tới DB MySQL
+            string connectionString = DataContext.MySqlConnectionString;
+            PagingData<T> recordsData = new PagingData<T>();
+            using (var mysqlConnection = new MySqlConnection(connectionString))
+            {
+                // Khai báo tên prodecure Insert
+                string storedProcedureName = String.Format(Resource.Proc_GetPaging, typeof(T).Name);
+
+                // Thực hiện gọi vào DB để chạy procedure
+                var multiRecords = mysqlConnection.QueryMultiple(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
+                 
+                var records = multiRecords.Read<T>().ToList();
+                var totalCount = multiRecords.Read<long>().Single();
+
+                recordsData = new PagingData<T>(records, totalCount, 0, 0, 0, 0);
+            }
+            return recordsData;
+        }
+
+        #endregion
+
+        #region API Insert
+
+        /// <summary>
         /// Thêm mới 1 bản ghi
         /// </summary>
         /// <param name="record">Đối tượng bản ghi cần thêm mới</param>
@@ -84,11 +130,11 @@ namespace MISA.WebFresher08.QLTS.DL
             var parameters = new DynamicParameters();
             var newRecordID = Guid.NewGuid();
             var properties = typeof(T).GetProperties();
-            foreach(var property in properties)
+            foreach (var property in properties)
             {
                 string propertyName = property.Name;
                 object propertyValue;
-                var primaryKeyAttribute = (PrimaryKeyAttribute)Attribute.GetCustomAttribute(property, typeof(PrimaryKeyAttribute));               
+                var primaryKeyAttribute = (PrimaryKeyAttribute)Attribute.GetCustomAttribute(property, typeof(PrimaryKeyAttribute));
                 if (primaryKeyAttribute != null)
                 {
                     propertyValue = newRecordID;
@@ -97,7 +143,7 @@ namespace MISA.WebFresher08.QLTS.DL
                 {
                     propertyValue = property.GetValue(record, null);
                 }
-                parameters.Add($"v_{propertyName}", propertyValue);  
+                parameters.Add($"v_{propertyName}", propertyValue);
             }
 
             // Khởi tạo kết nối tới DB MySQL
@@ -122,6 +168,10 @@ namespace MISA.WebFresher08.QLTS.DL
                 return Guid.Empty;
             }
         }
+
+        #endregion
+
+        #region API Update
 
         /// <summary>
         /// Cập nhật 1 bản ghi
@@ -173,6 +223,10 @@ namespace MISA.WebFresher08.QLTS.DL
             }
         }
 
+        #endregion
+
+        #region API Delete
+
         /// <summary>
         /// Xóa 1 bản ghi
         /// </summary>
@@ -222,7 +276,7 @@ namespace MISA.WebFresher08.QLTS.DL
         /// <param name="recordIdList">Danh sách ID các bản ghi cần xóa</param>
         /// <returns>Danh sách ID các bản ghi đã xóa</returns>
         /// Cretaed by: NDDAT (19/09/2022)
-        public List<string> DeleteMultiAssets(List<string> recordIdList)
+        public List<string> DeleteMultiRecords(List<string> recordIdList)
         {
             // Chuẩn bị tham số đầu vào cho procedure
             var parameters = new DynamicParameters();
@@ -257,7 +311,7 @@ namespace MISA.WebFresher08.QLTS.DL
                 // Thực hiện gọi vào DB để chạy procedure
                 numberOfAffectedRows = mysqlConnection.Execute(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
             }
-            if(numberOfAffectedRows > 0)
+            if (numberOfAffectedRows > 0)
             {
                 return recordIdList;
             }
@@ -265,6 +319,8 @@ namespace MISA.WebFresher08.QLTS.DL
             {
                 return new List<string>();
             }
-        }
+        } 
+
+        #endregion
     }
 }

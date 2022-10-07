@@ -94,7 +94,46 @@ namespace MISA.WebFresher08.QLTS.API.Controllers
                     Resource.MoreInfo_Exception,
                     HttpContext.TraceIdentifier));
             }
-        } 
+        }
+
+        /// <summary>
+        /// Lấy danh sách các bản ghi theo từ khóa
+        /// </summary>
+        /// <param name="keyword">Từ để tìm kiếm bản ghi</param>
+        /// <param name="type">Loại dữ liệu được tìm kiếm</param>
+        /// <returns>Danh sách các bản ghi sau khi chọn lọc</returns>
+        /// Created by: NDDAT (05/10/2022)
+        [HttpGet("filter")]
+        public IActionResult FilterRecords(string? keyword, string type)
+        {
+            try
+            {
+                PagingData<T> recordsData = _baseBL.FilterRecords(keyword, type);
+                if (recordsData != null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, recordsData);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
+                        QltsErrorCode.SelectFailed,
+                        Resource.DevMsg_SelectFailed,
+                        Resource.UserMsg_SelectFailed,
+                        Resource.MoreInfo_SelectFailed,
+                        HttpContext.TraceIdentifier));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult(
+                    QltsErrorCode.Exception,
+                    Resource.DevMsg_Exception,
+                    Resource.UserMsg_Exception,
+                    Resource.MoreInfo_Exception,
+                    HttpContext.TraceIdentifier));
+            }           
+        }
 
         #endregion
 
@@ -233,11 +272,11 @@ namespace MISA.WebFresher08.QLTS.API.Controllers
         /// <returns>Danh sách ID các bản ghi đã xóa</returns>
         /// Cretaed by: NDDAT (19/09/2022)
         [HttpPost("batch-delete")]
-        public IActionResult DeleteMultiAssets(List<string> recordIdList)
+        public IActionResult DeleteMultiRecords(List<string> recordIdList)
         {
             try
             {
-                List<string> results = _baseBL.DeleteMultiAssets(recordIdList);
+                List<string> results = _baseBL.DeleteMultiRecords(recordIdList);
 
                 if (results.Count > 0)
                 {

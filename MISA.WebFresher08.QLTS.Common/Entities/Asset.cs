@@ -12,6 +12,7 @@ namespace MISA.WebFresher08.QLTS.Common.Entities
         /// ID tài sản
         /// </summary>
         [PrimaryKey]
+        [IsNotNullOrEmpty("ID tài sản không được để trống")]
         public Guid fixed_asset_id { get; set; }
 
         /// <summary>
@@ -32,54 +33,59 @@ namespace MISA.WebFresher08.QLTS.Common.Entities
         public string? organization_id { get; set; }
 
         /// <summary>
-        /// ID đơn vị
+        /// Mã đơn vị
         /// </summary>
         public string? organization_code { get; set; }
 
         /// <summary>
-        /// ID đơn vị
+        /// Tên đơn vị
         /// </summary>
         public string? organization_name { get; set; }
 
         /// <summary>
         /// ID phòng ban
         /// </summary>
+        [IsNotNullOrEmpty("ID phòng ban không được để trống")]
         public Guid department_id { get; set; }
 
         /// <summary>
-        /// ID tài sản
+        /// Mã phòng ban
         /// </summary>
-        //[IsNotNullOrEmpty("Mã bộ phận sử dụng không được để trống")]
+        [IsNotNullOrEmpty("Mã phòng ban không được để trống")]
         public string? department_code { get; set; }
 
         /// <summary>
-        /// ID tài sản
+        /// Tên phòng ban
         /// </summary>
+        [IsNotNullOrEmpty("Tên phòng ban không được để trống")]
         public string? department_name { get; set; }
 
         /// <summary>
         /// ID loại tài sản
         /// </summary>
+        [IsNotNullOrEmpty("ID loại tài sản không được để trống")]
         public Guid fixed_asset_category_id { get; set; }
 
         /// <summary>
-        /// ID tài sản
+        /// Mã loại tài sản
         /// </summary>
-        //[IsNotNullOrEmpty("Mã loại tài sản không được để trống")]
+        [IsNotNullOrEmpty("Mã loại tài sản không được để trống")]
         public string? fixed_asset_category_code { get; set; }
 
         /// <summary>
-        /// ID tài sản
+        /// Tên loại tài sản
         /// </summary>
+        [IsNotNullOrEmpty("Tên loại tài sản không được để trống")]
         public string? fixed_asset_category_name { get; set; }
 
         /// <summary>
         /// Ngày mua
         /// </summary>
+        [IsNotNullOrEmpty("Ngày mua không được để trống")]
         public DateTime purchase_date { get; set; }
 
         /// <summary>
-        /// Giá tiền
+        /// Nguyên giá
         /// </summary>
         [IsNotNullOrEmpty("Nguyên giá không được để trống")]
         public double cost { get; set; }
@@ -99,6 +105,7 @@ namespace MISA.WebFresher08.QLTS.Common.Entities
         /// <summary>
         /// Năm theo dõi
         /// </summary>
+        [IsNotNullOrEmpty("Năm theo dõi không được để trống")]
         public int tracked_year { get; set; }
 
         /// <summary>
@@ -110,6 +117,7 @@ namespace MISA.WebFresher08.QLTS.Common.Entities
         /// <summary>
         /// Năm sử dụng
         /// </summary>
+        [IsNotNullOrEmpty("Năm sử dụng không được để trống")]
         public int production_year { get; set; }
 
         /// <summary>

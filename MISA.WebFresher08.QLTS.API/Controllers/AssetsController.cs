@@ -30,7 +30,7 @@ namespace MISA.WebFresher08.QLTS.API
 
         #endregion
 
-        #region API Get
+        #region Method
 
         /// <summary>
         /// Lấy danh sách các tài sản có chọn lọc
@@ -42,7 +42,7 @@ namespace MISA.WebFresher08.QLTS.API
         /// <param name="page">Số trang bắt đầu lấy</param>
         /// <returns>Danh sách các tài sản sau khi chọn lọc và các giá trị khác</returns>
         /// Created by: NDDAT (19/09/2022)
-        [HttpGet("filter")]
+        [HttpGet("filters")]
         public IActionResult FilterAssets([FromQuery] string? keyword, [FromQuery] Guid? departmentId, [FromQuery] Guid? categoryId, [FromQuery] int limit, [FromQuery] int page)
         {
             try
@@ -63,8 +63,6 @@ namespace MISA.WebFresher08.QLTS.API
             }
         }
 
-        #endregion
-
         /// <summary>
         /// Sinh mã tài sản tiếp theo
         /// </summary>
@@ -75,7 +73,7 @@ namespace MISA.WebFresher08.QLTS.API
         {
             try
             {
-                string nextAssetCode = _assetBL.NextAssetCode(); 
+                string nextAssetCode = _assetBL.NextAssetCode();
 
                 // Xử lý dữ liệu trả về
                 if (nextAssetCode != "")
@@ -136,6 +134,8 @@ namespace MISA.WebFresher08.QLTS.API
                     Resource.MoreInfo_Exception,
                     HttpContext.TraceIdentifier));
             }
-        }
+        } 
+
+        #endregion
     }
 }
