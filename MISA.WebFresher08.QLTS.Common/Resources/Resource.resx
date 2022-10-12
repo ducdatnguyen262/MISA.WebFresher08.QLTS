@@ -181,6 +181,10 @@
     <value>Proc_{0}_Delete</value>
     <comment>Template string cho procedure xóa 1 bản ghi</comment>
   </data>
+  <data name="Proc_DuplicateCode" xml:space="preserve">
+    <value>Proc_{0}_DuplicateCode</value>
+    <comment>Template string cho procedure validate trùng mã</comment>
+  </data>
   <data name="Proc_GetAll" xml:space="preserve">
     <value>Proc_{0}_GetAll</value>
     <comment>Template string cho procedure lấy tất cả bản ghi của 1 bảng</comment>

@@ -272,7 +272,7 @@ namespace MISA.WebFresher08.QLTS.API.Controllers
         /// <returns>Danh sách ID các bản ghi đã xóa</returns>
         /// Cretaed by: NDDAT (19/09/2022)
         [HttpPost("batch-delete")]
-        public IActionResult DeleteMultiRecords(List<string> recordIdList)
+        public IActionResult DeleteMultiRecords([FromBody] List<string> recordIdList)
         {
             try
             {

@@ -32,4 +32,29 @@
 
         #endregion
     }
+
+    /// <summary>
+    /// Attribure dùng để xác định 1 property không được trùng lặp
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Property)]
+    public class IsNotDuplicateAttribute : Attribute
+    {
+        #region Field
+
+        /// <summary>
+        /// Message lỗi trả về cho client
+        /// </summary>
+        public string ErrorMessage;
+
+        #endregion
+
+        #region Constructor
+
+        public IsNotDuplicateAttribute(string errorMessage)
+        {
+            ErrorMessage = errorMessage;
+        }
+
+        #endregion
+    }
 }

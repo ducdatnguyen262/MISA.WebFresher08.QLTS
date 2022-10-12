@@ -19,6 +19,7 @@ namespace MISA.WebFresher08.QLTS.Common.Entities
         /// Mã tài sản
         /// </summary>
         [IsNotNullOrEmpty("Mã tài sản không được để trống")]
+        [IsNotDuplicate("Mã tài sản không được trùng")]
         public string fixed_asset_code { get; set; }
 
         /// <summary>

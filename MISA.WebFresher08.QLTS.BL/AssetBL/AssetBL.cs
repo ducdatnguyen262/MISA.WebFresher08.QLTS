@@ -47,16 +47,6 @@ namespace MISA.WebFresher08.QLTS.BL
             return _assetDL.NextAssetCode();
         }
 
-        /// <summary>
-        /// Kiểm tra trùng mã tài sản
-        /// </summary>
-        /// <returns>Số lượng mã tài sản bị trùng</returns>
-        /// Cretaed by: NDDAT (01/10/2022)
-        public int DuplicateAssetCode(string assetCode)
-        {
-            return _assetDL.DuplicateAssetCode(assetCode);
-        }
-
         #endregion
     }
 }

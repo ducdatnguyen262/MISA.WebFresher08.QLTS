@@ -105,37 +105,6 @@ namespace MISA.WebFresher08.QLTS.API
             }
         }
 
-        /// <summary>
-        /// Kiểm tra trùng mã tài sản
-        /// </summary>
-        /// <returns>Số lượng mã tài sản bị trùng</returns>
-        /// Cretaed by: NDDAT (01/10/2022)
-        [HttpGet("duplicateCode/{assetCode}")]
-        public IActionResult DuplicateAssetCode([FromRoute] string assetCode)
-        {
-            try
-            {
-                var duplicates = _assetBL.DuplicateAssetCode(assetCode);
-
-                // Xử lý dữ liệu trả về
-                return StatusCode(StatusCodes.Status200OK, new DuplicateCode
-                {
-                    Duplicates = duplicates,
-                });
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult(
-                    QltsErrorCode.Exception,
-                    Resource.DevMsg_Exception,
-                    Resource.UserMsg_Exception,
-                    Resource.MoreInfo_Exception,
-                    HttpContext.TraceIdentifier));
-            }
-        } 
-
         #endregion
     }
 }

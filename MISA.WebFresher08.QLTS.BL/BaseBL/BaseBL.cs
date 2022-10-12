@@ -79,7 +79,7 @@ namespace MISA.WebFresher08.QLTS.BL
         /// Cretaed by: NDDAT (28/09/2022)
         public ServiceResponse InsertRecord(T record)
         {
-            var validateResult = ValidateRequestData(record);
+            var validateResult = ValidateRequestData(record, Guid.Empty);
 
             if (validateResult != null && validateResult.Success)
             {
@@ -97,7 +97,7 @@ namespace MISA.WebFresher08.QLTS.BL
                 {
                     return new ServiceResponse
                     {
-                        Success = true,
+                        Success = false,
                         Data = new ErrorResult(
                             QltsErrorCode.InvalidInput,
                             Resource.DevMsg_InsertFailed,
@@ -129,7 +129,7 @@ namespace MISA.WebFresher08.QLTS.BL
         /// Cretaed by: NDDAT (28/09/2022)
         public ServiceResponse UpdateRecord(Guid recordId, T record)
         {
-            var validateResult = ValidateRequestData(record);
+            var validateResult = ValidateRequestData(record, recordId);
 
             if (validateResult != null && validateResult.Success)
             {
@@ -147,7 +147,7 @@ namespace MISA.WebFresher08.QLTS.BL
                 {
                     return new ServiceResponse
                     {
-                        Success = true,
+                        Success = false,
                         Data = new ErrorResult(
                             QltsErrorCode.InvalidInput,
                             Resource.DevMsg_InsertFailed,
@@ -200,7 +200,7 @@ namespace MISA.WebFresher08.QLTS.BL
         /// <param name="record">Đối tượng cần validate</param>
         /// <returns>Đối tượng ServiceResponse mô tả validate thành công hay thất bại</returns>
         /// Cretaed by: NDDAT (28/09/2022)
-        private ServiceResponse ValidateRequestData(T record)
+        private ServiceResponse ValidateRequestData(T record, Guid recordId)
         {
             // Validate dữ liệu đầu vào
             var properties = typeof(T).GetProperties();
@@ -213,10 +213,17 @@ namespace MISA.WebFresher08.QLTS.BL
                 {
                     validateFailures.Add(IsNotNullOrEmptyAttribute.ErrorMessage);
                 }
+
+                var IsNotDuplicateAttribute = (IsNotDuplicateAttribute?)Attribute.GetCustomAttribute(property, typeof(IsNotDuplicateAttribute));
+                if (IsNotDuplicateAttribute != null)
+                {
+                    var a = _baseDL.DuplicateAssetCode(propertyValue, recordId);
+                    if(a>0) validateFailures.Add(IsNotDuplicateAttribute.ErrorMessage);
+                }
             }
 
             if (validateFailures.Count > 0)
-            {
+             {
                 return new ServiceResponse
                 {
                     Success = false,

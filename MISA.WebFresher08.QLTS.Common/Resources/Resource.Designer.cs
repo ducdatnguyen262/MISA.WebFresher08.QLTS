@@ -205,6 +205,15 @@ namespace MISA.WebFresher08.QLTS.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Proc_{0}_DuplicateCode.
+        /// </summary>
+        public static string Proc_DuplicateCode {
+            get {
+                return ResourceManager.GetString("Proc_DuplicateCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Proc_{0}_GetAll.
         /// </summary>
         public static string Proc_GetAll {

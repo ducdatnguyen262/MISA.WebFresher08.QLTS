@@ -85,30 +85,5 @@ namespace MISA.WebFresher08.QLTS.DL
                 return "";
             }
         }
-
-        /// <summary>
-        /// Kiểm tra trùng mã tài sản
-        /// </summary>
-        /// <returns>Số lượng mã tài sản bị trùng</returns>
-        /// Cretaed by: NDDAT (01/10/2022)
-        public int DuplicateAssetCode(string assetCode)
-        {
-            // Khai báo tên prodecure Insert
-            string storedProcedureName = "Proc_asset_DuplicateCode";
-
-            // Chuẩn bị tham số đầu vào cho procedure
-            var parameters = new DynamicParameters();
-            parameters.Add("v_fixed_asset_code", assetCode);
-
-            // Khởi tạo kết nối tới DB MySQL
-            string connectionString = DataContext.MySqlConnectionString;
-            int duplicates = 0;
-            using (var mysqlConnection = new MySqlConnection(connectionString))
-            {
-                duplicates = mysqlConnection.QueryFirstOrDefault<int>(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
-            }
-
-            return duplicates;
-        }
     }
 }

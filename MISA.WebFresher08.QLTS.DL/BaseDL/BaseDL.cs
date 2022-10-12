@@ -6,10 +6,13 @@ using MISA.WebFresher08.QLTS.Common.Resources;
 using MySqlConnector;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace MISA.WebFresher08.QLTS.DL
 {
@@ -279,7 +282,6 @@ namespace MISA.WebFresher08.QLTS.DL
         public List<string> DeleteMultiRecords(List<string> recordIdList)
         {
             // Chuẩn bị tham số đầu vào cho procedure
-            var parameters = new DynamicParameters();
             var properties = typeof(T).GetProperties();
             var propertyName = "";
             foreach (var property in properties)
@@ -292,35 +294,66 @@ namespace MISA.WebFresher08.QLTS.DL
                 }
             }
 
-            var queryList = new List<string>();
-            for (int i = 0; i < recordIdList.Count; i++)
-            {
-                queryList.Add($"{propertyName}=\'{recordIdList[i]}\'");
-            }
-            string recordIds = string.Join(" OR ", queryList);
-            parameters.Add($"v_{propertyName}s_query", recordIds);
-
             // Khởi tạo kết nối tới DB MySQL
             string connectionString = DataContext.MySqlConnectionString;
             int numberOfAffectedRows = 0;
             using (var mysqlConnection = new MySqlConnection(connectionString))
             {
                 // Khai báo tên prodecure Insert
-                string storedProcedureName = String.Format(Resource.Proc_BatchDelete, typeof(T).Name);
+                string storedProcedureName = String.Format(Resource.Proc_Delete, typeof(T).Name);
 
-                // Thực hiện gọi vào DB để chạy procedure
-                numberOfAffectedRows = mysqlConnection.Execute(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
+                mysqlConnection.Open();
+
+                // Start a local transaction.
+                using (var transaction = mysqlConnection.BeginTransaction())
+                {
+                    for (int i = 0; i < recordIdList.Count; i++)
+                    {
+                        var parameters = new DynamicParameters();
+                        parameters.Add($"v_{propertyName}", recordIdList[i]);
+                        numberOfAffectedRows += mysqlConnection.Execute(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure, transaction: transaction);
+                    }
+
+                    if (numberOfAffectedRows == recordIdList.Count)
+                    {
+                        transaction.Commit();
+                        return recordIdList;
+                    }
+                    else
+                    {
+                        transaction.Rollback();
+                        return new List<string>();
+                    }
+                }
             }
-            if (numberOfAffectedRows > 0)
-            {
-                return recordIdList;
-            }
-            else
-            {
-                return new List<string>();
-            }
-        } 
+        }
 
         #endregion
+
+        /// <summary>
+        /// Kiểm tra trùng mã tài sản
+        /// </summary>
+        /// <returns>Số lượng mã tài sản bị trùng</returns>
+        /// Cretaed by: NDDAT (12/10/2022)
+        public int DuplicateAssetCode(object assetCode, Guid assetId)
+        {
+            // Khai báo tên prodecure
+            string storedProcedureName = String.Format(Resource.Proc_DuplicateCode, typeof(T).Name);
+
+            // Chuẩn bị tham số đầu vào cho procedure
+            var parameters = new DynamicParameters();
+            parameters.Add("v_fixed_asset_code", assetCode);
+            parameters.Add("v_fixed_asset_id", assetId);
+
+            // Khởi tạo kết nối tới DB MySQL
+            string connectionString = DataContext.MySqlConnectionString;
+            int duplicates = 0;
+            using (var mysqlConnection = new MySqlConnection(connectionString))
+            {
+                duplicates = mysqlConnection.QueryFirstOrDefault<int>(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
+            }
+
+            return duplicates;
+        }
     }
 }
