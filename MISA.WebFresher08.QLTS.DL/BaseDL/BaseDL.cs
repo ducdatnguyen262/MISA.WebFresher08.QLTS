@@ -304,7 +304,7 @@ namespace MISA.WebFresher08.QLTS.DL
 
                 mysqlConnection.Open();
 
-                // Start a local transaction.
+                // Bắt đầu transaction.
                 using (var transaction = mysqlConnection.BeginTransaction())
                 {
                     for (int i = 0; i < recordIdList.Count; i++)

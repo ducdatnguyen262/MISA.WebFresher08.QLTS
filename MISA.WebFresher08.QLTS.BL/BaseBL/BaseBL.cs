@@ -190,7 +190,7 @@ namespace MISA.WebFresher08.QLTS.BL
         public List<string> DeleteMultiRecords(List<string> recordIdList)
         {
             return _baseDL.DeleteMultiRecords(recordIdList);
-        } 
+        }
 
         #endregion
 
@@ -198,6 +198,7 @@ namespace MISA.WebFresher08.QLTS.BL
         /// Validate dữ liệu truyền lên từ API
         /// </summary>
         /// <param name="record">Đối tượng cần validate</param>
+        /// <param name="recordId">Id đối tượng cần validate</param>
         /// <returns>Đối tượng ServiceResponse mô tả validate thành công hay thất bại</returns>
         /// Cretaed by: NDDAT (28/09/2022)
         private ServiceResponse ValidateRequestData(T record, Guid recordId)
@@ -217,8 +218,8 @@ namespace MISA.WebFresher08.QLTS.BL
                 var IsNotDuplicateAttribute = (IsNotDuplicateAttribute?)Attribute.GetCustomAttribute(property, typeof(IsNotDuplicateAttribute));
                 if (IsNotDuplicateAttribute != null)
                 {
-                    var a = _baseDL.DuplicateAssetCode(propertyValue, recordId);
-                    if(a>0) validateFailures.Add(IsNotDuplicateAttribute.ErrorMessage);
+                    int count = _baseDL.DuplicateAssetCode(propertyValue, recordId);
+                    if(count > 0) validateFailures.Add(IsNotDuplicateAttribute.ErrorMessage);
                 }
             }
 
