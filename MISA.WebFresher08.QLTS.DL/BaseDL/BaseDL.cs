@@ -331,19 +331,35 @@ namespace MISA.WebFresher08.QLTS.DL
         #endregion
 
         /// <summary>
-        /// Kiểm tra trùng mã tài sản
+        /// Kiểm tra trùng mã bản ghi
         /// </summary>
+        /// <param name="recordCode">Mã cần xét trùng</param>
+        /// <param name="recordId">Id bản ghi đưa vào (nếu là sửa)</param>
         /// <returns>Số lượng mã tài sản bị trùng</returns>
         /// Cretaed by: NDDAT (12/10/2022)
-        public int DuplicateAssetCode(object assetCode, Guid assetId)
+        public int DuplicateRecordCode(object recordCode, Guid recordId)
         {
             // Khai báo tên prodecure
             string storedProcedureName = String.Format(Resource.Proc_DuplicateCode, typeof(T).Name);
 
             // Chuẩn bị tham số đầu vào cho procedure
             var parameters = new DynamicParameters();
-            parameters.Add("v_fixed_asset_code", assetCode);
-            parameters.Add("v_fixed_asset_id", assetId);
+            var properties = typeof(T).GetProperties();
+
+            foreach (var property in properties)
+            {
+                var isNotDuplicateAttribute = (IsNotDuplicateAttribute)Attribute.GetCustomAttribute(property, typeof(IsNotDuplicateAttribute));
+                if (isNotDuplicateAttribute != null)
+                {
+                    parameters.Add($"v_{property.Name}", recordCode);
+                }
+
+                var primaryKeyAttribute = (PrimaryKeyAttribute)Attribute.GetCustomAttribute(property, typeof(PrimaryKeyAttribute));
+                if (primaryKeyAttribute != null)
+                {
+                    parameters.Add($"v_{property.Name}", recordId);
+                }
+            }
 
             // Khởi tạo kết nối tới DB MySQL
             string connectionString = DataContext.MySqlConnectionString;

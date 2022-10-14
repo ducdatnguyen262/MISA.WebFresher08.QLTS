@@ -118,7 +118,6 @@ namespace MISA.WebFresher08.QLTS.Common.Entities
         /// <summary>
         /// Năm sử dụng
         /// </summary>
-        [IsNotNullOrEmpty("Năm sử dụng không được để trống")]
         public int production_year { get; set; }
 
         /// <summary>

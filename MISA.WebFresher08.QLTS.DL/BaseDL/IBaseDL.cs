@@ -83,10 +83,12 @@ namespace MISA.WebFresher08.QLTS.DL
         #endregion
 
         /// <summary>
-        /// Kiểm tra trùng mã tài sản
+        /// Kiểm tra trùng mã bản ghi
         /// </summary>
+        /// <param name="recordCode">Mã cần xét trùng</param>
+        /// <param name="recordId">Id bản ghi đưa vào (nếu là sửa)</param>
         /// <returns>Số lượng mã tài sản bị trùng</returns>
         /// Cretaed by: NDDAT (12/10/2022)
-        public int DuplicateAssetCode(object assetCode, Guid assetId);
+        public int DuplicateRecordCode(object recordCode, Guid recordId);
     }
 }

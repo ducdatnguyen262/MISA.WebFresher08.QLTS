@@ -218,7 +218,7 @@ namespace MISA.WebFresher08.QLTS.BL
                 var IsNotDuplicateAttribute = (IsNotDuplicateAttribute?)Attribute.GetCustomAttribute(property, typeof(IsNotDuplicateAttribute));
                 if (IsNotDuplicateAttribute != null)
                 {
-                    int count = _baseDL.DuplicateAssetCode(propertyValue, recordId);
+                    int count = _baseDL.DuplicateRecordCode(propertyValue, recordId);
                     if(count > 0) validateFailures.Add(IsNotDuplicateAttribute.ErrorMessage);
                 }
             }
