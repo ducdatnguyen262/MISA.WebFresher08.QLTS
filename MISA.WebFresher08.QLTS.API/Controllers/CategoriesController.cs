@@ -9,8 +9,6 @@ using MySqlConnector;
 
 namespace MISA.WebFresher08.QLTS.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class CategoriesController : BasesController<Category>
     {
         #region Constructor
