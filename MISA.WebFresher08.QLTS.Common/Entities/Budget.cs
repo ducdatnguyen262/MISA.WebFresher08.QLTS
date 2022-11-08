@@ -7,11 +7,20 @@ using System.Threading.Tasks;
 
 namespace MISA.WebFresher08.QLTS.Common.Entities
 {
-    public class Budget
+    /// <summary>
+    /// Ngân sách
+    /// </summary>
+    public class Budget : BaseEntity
     {
+        /// <summary>
+        /// Id ngân sách
+        /// </summary>
         [PrimaryKey]
         public Guid budget_id { get; set; }
 
+        /// <summary>
+        /// Tên ngân sách
+        /// </summary>
         public string budget_name { get; set; }
     }
 }
