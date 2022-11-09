@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace MISA.WebFresher08.QLTS.Common.Entities
 {
     /// <summary>
-    /// Ghi tăng
+    /// Chứng từ ghi tăng
     /// </summary>
-    public class Increment : BaseEntity
+    public class Voucher : BaseEntity
     {
         /// <summary>
         /// Id chứng từ
@@ -31,12 +31,12 @@ namespace MISA.WebFresher08.QLTS.Common.Entities
         /// <summary>
         /// Ngày ghi tăng
         /// </summary>
-        public DateTime increme_date { get; set; }
+        public DateTime increment_date { get; set; }
 
         /// <summary>
         /// Tổng nguyên giá
         /// </summary>
-        public double price { get; set; }
+        public double cost { get; set; }
 
         /// <summary>
         /// Nội dung

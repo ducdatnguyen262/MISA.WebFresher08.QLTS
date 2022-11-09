@@ -34,6 +34,8 @@ builder.Services.AddScoped<IAssetBL, AssetBL>();
 builder.Services.AddScoped<IAssetDL, AssetDL>();
 builder.Services.AddScoped<IDepartmentBL, DepartmentBL>();
 builder.Services.AddScoped<IDepartmentDL, DepartmentDL>();
+builder.Services.AddScoped<IVoucherBL, VoucherBL>();
+builder.Services.AddScoped<IVoucherDL, VoucherDL>();
 
 DataContext.MySqlConnectionString = builder.Configuration.GetConnectionString("MySqlConnectionString");
 
