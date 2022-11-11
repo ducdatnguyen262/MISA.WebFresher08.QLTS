@@ -22,5 +22,15 @@ namespace MISA.WebFresher08.QLTS.BL
         /// <returns>Mã tài sản tiếp theo</returns>
         /// Cretaed by: NDDAT (01/10/2022)
         public string NextAssetCode();
+
+        /// <summary>
+        /// Lấy danh sách các tài sản theo chứng từ
+        /// </summary>
+        /// <param name="voucherCode">Số chứng từ</param>
+        /// <param name="limit">Số bản ghi muốn lấy</param>
+        /// <param name="page">Số trang bắt đầu lấy</param>
+        /// <returns>Danh sách các tài sản theo chứng từ</returns>
+        /// Created by: NDDAT (09/11/2022)
+        public PagingData<Asset> Voucher(string voucherCode, int limit, int page);
     }
 }

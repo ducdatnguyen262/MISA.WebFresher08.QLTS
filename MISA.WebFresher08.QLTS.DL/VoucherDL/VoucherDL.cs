@@ -47,8 +47,9 @@ namespace MISA.WebFresher08.QLTS.DL
                 // Xử lý dữ liệu trả về
                 var vouchers = multiVouchers.Read<Voucher>();
                 var totalCount = multiVouchers.Read<long>().Single();
+                var totalCost = multiVouchers.Read<long>().Single();
 
-                filterResponse = new PagingData<Voucher>(vouchers, totalCount, 0, 0, 0, 0);
+                filterResponse = new PagingData<Voucher>(vouchers, totalCount, 0, totalCost, 0, 0);
             }
 
             return filterResponse;
