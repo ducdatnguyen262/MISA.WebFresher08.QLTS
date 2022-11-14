@@ -296,23 +296,19 @@ namespace MISA.WebFresher08.QLTS.DL
 
             // Khởi tạo kết nối tới DB MySQL
             string connectionString = DataContext.MySqlConnectionString;
-            int numberOfAffectedRows = 0;
             using (var mysqlConnection = new MySqlConnection(connectionString))
             {
                 // Khai báo tên prodecure Insert
-                string storedProcedureName = String.Format(Resource.Proc_Delete, typeof(T).Name);
+                string storedProcedureName = String.Format(Resource.Proc_BatchDelete, typeof(T).Name);
 
                 mysqlConnection.Open();
 
                 // Bắt đầu transaction.
                 using (var transaction = mysqlConnection.BeginTransaction())
                 {
-                    for (int i = 0; i < recordIdList.Count; i++)
-                    {
-                        var parameters = new DynamicParameters();
-                        parameters.Add($"v_{propertyName}", recordIdList[i]);
-                        numberOfAffectedRows += mysqlConnection.Execute(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure, transaction: transaction);
-                    }
+                    var parameters = new DynamicParameters();
+                    parameters.Add($"v_{propertyName}s", $"'{String.Join("','", recordIdList)}'" );
+                    int numberOfAffectedRows = mysqlConnection.Execute(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure, transaction: transaction);
 
                     if (numberOfAffectedRows == recordIdList.Count)
                     {
