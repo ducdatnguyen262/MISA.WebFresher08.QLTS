@@ -59,34 +59,6 @@ namespace MISA.WebFresher08.QLTS.DL
         }
 
         /// <summary>
-        /// Sinh mã tài sản tiếp theo
-        /// </summary>
-        /// <returns>Mã tài sản tiếp theo</returns>
-        /// Cretaed by: NDDAT (01/10/2022)
-        public string NextAssetCode()
-        {
-            // Khai báo tên prodecure Insert
-            string storedProcedureName = "Proc_asset_GetNextCode";
-
-            // Khởi tạo kết nối tới DB MySQL
-            string connectionString = DataContext.MySqlConnectionString;
-            string nextAssetCode = "";
-            using (var mysqlConnection = new MySqlConnection(connectionString))
-            {
-                nextAssetCode = mysqlConnection.QueryFirstOrDefault<string>(storedProcedureName, commandType: System.Data.CommandType.StoredProcedure);
-            }
-            // Xử lý dữ liệu trả về
-            if (nextAssetCode != null)
-            {
-                return nextAssetCode;
-            }
-            else
-            {
-                return "";
-            }
-        }
-
-        /// <summary>
         /// Lấy danh sách các tài sản theo chứng từ
         /// </summary>
         /// <param name="voucherCode">Số chứng từ</param>

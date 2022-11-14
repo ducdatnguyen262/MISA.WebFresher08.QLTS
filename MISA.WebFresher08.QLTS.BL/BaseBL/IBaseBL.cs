@@ -78,8 +78,15 @@ namespace MISA.WebFresher08.QLTS.BL
         /// <param name="recordIdList">Danh sách ID các bản ghi cần xóa</param>
         /// <returns>Danh sách ID các bản ghi đã xóa</returns>
         /// Cretaed by: NDDAT (19/09/2022)
-        public List<string> DeleteMultiRecords(List<string> recordIdList); 
+        public List<string> DeleteMultiRecords(List<string> recordIdList);
 
         #endregion
+
+        /// <summary>
+        /// Sinh mã tài sản tiếp theo
+        /// </summary>
+        /// <returns>Mã tài sản tiếp theo</returns>
+        /// Cretaed by: NDDAT (01/10/2022)
+        public string NextCode();
     }
 }

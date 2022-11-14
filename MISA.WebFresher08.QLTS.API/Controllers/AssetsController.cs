@@ -64,48 +64,6 @@ namespace MISA.WebFresher08.QLTS.API
         }
 
         /// <summary>
-        /// Sinh mã tài sản tiếp theo
-        /// </summary>
-        /// <returns>Mã tài sản tiếp theo</returns>
-        /// Cretaed by: NDDAT (01/10/2022)
-        [HttpGet("nextCode")]
-        public IActionResult NextAssetCode()
-        {
-            try
-            {
-                string nextAssetCode = _assetBL.NextAssetCode();
-
-                // Xử lý dữ liệu trả về
-                if (nextAssetCode != "")
-                {
-                    return StatusCode(StatusCodes.Status200OK, new NextCode()
-                    {
-                        Code = nextAssetCode,
-                    });
-                }
-                else
-                {
-                    return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
-                        QltsErrorCode.UpdateFailed,
-                        Resource.DevMsg_UpdateFailed,
-                        Resource.UserMsg_UpdateFailed,
-                        Resource.MoreInfo_UpdateFailed,
-                        HttpContext.TraceIdentifier));
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult(
-                    QltsErrorCode.Exception,
-                    Resource.DevMsg_Exception,
-                    Resource.UserMsg_Exception,
-                    Resource.MoreInfo_Exception,
-                    HttpContext.TraceIdentifier));
-            }
-        }
-
-        /// <summary>
         /// Lấy danh sách các tài sản theo chứng từ
         /// </summary>
         /// <param name="voucherCode">Số chứng từ</param>

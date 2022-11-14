@@ -38,16 +38,6 @@ namespace MISA.WebFresher08.QLTS.BL
         }
 
         /// <summary>
-        /// Sinh mã tài sản tiếp theo
-        /// </summary>
-        /// <returns>Mã tài sản tiếp theo</returns>
-        /// Cretaed by: NDDAT (01/10/2022)
-        public string NextAssetCode()
-        {
-            return _assetDL.NextAssetCode();
-        }
-
-        /// <summary>
         /// Lấy danh sách các tài sản theo chứng từ
         /// </summary>
         /// <param name="voucherCode">Số chứng từ</param>

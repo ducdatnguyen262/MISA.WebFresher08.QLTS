@@ -367,5 +367,33 @@ namespace MISA.WebFresher08.QLTS.DL
 
             return duplicates;
         }
+
+        /// <summary>
+        /// Sinh mã tiếp theo
+        /// </summary>
+        /// <returns>Mã tiếp theo</returns>
+        /// Cretaed by: NDDAT (01/10/2022)
+        public string NextCode()
+        {
+            // Khai báo tên prodecure Insert
+            string storedProcedureName = String.Format(Resource.Proc_GetNextCode, typeof(T).Name);
+
+            // Khởi tạo kết nối tới DB MySQL
+            string connectionString = DataContext.MySqlConnectionString;
+            string nextAssetCode = "";
+            using (var mysqlConnection = new MySqlConnection(connectionString))
+            {
+                nextAssetCode = mysqlConnection.QueryFirstOrDefault<string>(storedProcedureName, commandType: System.Data.CommandType.StoredProcedure);
+            }
+            // Xử lý dữ liệu trả về
+            if (nextAssetCode != null)
+            {
+                return nextAssetCode;
+            }
+            else
+            {
+                return "";
+            }
+        }
     }
 }

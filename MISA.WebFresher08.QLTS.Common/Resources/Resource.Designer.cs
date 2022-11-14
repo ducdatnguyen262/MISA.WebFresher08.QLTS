@@ -223,6 +223,15 @@ namespace MISA.WebFresher08.QLTS.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Proc_{0}_GetNextCode.
+        /// </summary>
+        public static string Proc_GetNextCode {
+            get {
+                return ResourceManager.GetString("Proc_GetNextCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Proc_{0}_GetPaging.
         /// </summary>
         public static string Proc_GetPaging {

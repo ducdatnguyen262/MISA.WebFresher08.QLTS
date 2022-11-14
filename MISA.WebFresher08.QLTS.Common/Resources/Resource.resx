@@ -189,6 +189,10 @@
     <value>Proc_{0}_GetAll</value>
     <comment>Template string cho procedure lấy tất cả bản ghi của 1 bảng</comment>
   </data>
+  <data name="Proc_GetNextCode" xml:space="preserve">
+    <value>Proc_{0}_GetNextCode</value>
+    <comment>Template string cho procedure lấy mã tiếp theo</comment>
+  </data>
   <data name="Proc_GetPaging" xml:space="preserve">
     <value>Proc_{0}_GetPaging</value>
     <comment>Template string cho procedure lấy bản ghi theo điều kiện</comment>

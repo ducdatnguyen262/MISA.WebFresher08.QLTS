@@ -90,5 +90,12 @@ namespace MISA.WebFresher08.QLTS.DL
         /// <returns>Số lượng mã tài sản bị trùng</returns>
         /// Cretaed by: NDDAT (12/10/2022)
         public int DuplicateRecordCode(object recordCode, Guid recordId);
+
+        /// <summary>
+        /// Sinh mã tiếp theo
+        /// </summary>
+        /// <returns>Mã tiếp theo</returns>
+        /// Cretaed by: NDDAT (01/10/2022)
+        public string NextCode();
     }
 }

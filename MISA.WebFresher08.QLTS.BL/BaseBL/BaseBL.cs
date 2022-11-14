@@ -237,6 +237,16 @@ namespace MISA.WebFresher08.QLTS.BL
             };
         }
 
+        /// <summary>
+        /// Sinh mã tài sản tiếp theo
+        /// </summary>
+        /// <returns>Mã tài sản tiếp theo</returns>
+        /// Cretaed by: NDDAT (01/10/2022)
+        public string NextCode()
+        {
+            return _baseDL.NextCode();
+        }
+
         #endregion
     }
 }
