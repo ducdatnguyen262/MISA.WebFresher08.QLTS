@@ -196,6 +196,15 @@ namespace MISA.WebFresher08.QLTS.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Proc_{0}_BatchSelect.
+        /// </summary>
+        public static string Proc_BatchSelect {
+            get {
+                return ResourceManager.GetString("Proc_BatchSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Proc_{0}_Delete.
         /// </summary>
         public static string Proc_Delete {

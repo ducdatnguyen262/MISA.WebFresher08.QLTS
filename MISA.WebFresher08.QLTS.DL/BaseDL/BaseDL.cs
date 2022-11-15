@@ -298,7 +298,7 @@ namespace MISA.WebFresher08.QLTS.DL
             string connectionString = DataContext.MySqlConnectionString;
             using (var mysqlConnection = new MySqlConnection(connectionString))
             {
-                // Khai báo tên prodecure Insert
+                // Khai báo tên prodecure
                 string storedProcedureName = String.Format(Resource.Proc_BatchDelete, typeof(T).Name);
 
                 mysqlConnection.Open();

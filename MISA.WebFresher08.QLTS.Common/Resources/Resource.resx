@@ -177,6 +177,10 @@
     <value>Proc_{0}_BatchDelete</value>
     <comment>Template string cho procedure xóa nhiều bản ghi</comment>
   </data>
+  <data name="Proc_BatchSelect" xml:space="preserve">
+    <value>Proc_{0}_BatchSelect</value>
+    <comment>Template string cho procedure lấy nhiều bản ghi theo danh sách id</comment>
+  </data>
   <data name="Proc_Delete" xml:space="preserve">
     <value>Proc_{0}_Delete</value>
     <comment>Template string cho procedure xóa 1 bản ghi</comment>
