@@ -44,39 +44,11 @@ namespace MISA.WebFresher08.QLTS.API
         /// <returns>Danh sách các tài sản sau khi chọn lọc và các giá trị khác</returns>
         /// Created by: NDDAT (19/09/2022)
         [HttpPost("filters")]
-        public IActionResult FilterAssets([FromQuery] string? keyword, [FromQuery] Guid? departmentId, [FromQuery] Guid? categoryId, [FromQuery] int limit, [FromQuery] int page, [FromBody] List<string> recordIdList, [FromQuery] Boolean chooseOnly)
+        public IActionResult FilterAssets([FromQuery] string? keyword, [FromQuery] Guid? departmentId, [FromQuery] Guid? categoryId, [FromQuery] int limit, [FromQuery] int page, [FromBody] List<string> assetIdList, [FromQuery] Boolean chooseOnly)
         {
             try
             {
-                var filterResponse = _assetBL.FilterAssets(keyword, departmentId, categoryId, limit, page, recordIdList, chooseOnly);
-                return StatusCode(StatusCodes.Status200OK, filterResponse);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult(
-                    QltsErrorCode.Exception,
-                    Resource.DevMsg_Exception,
-                    Resource.UserMsg_Exception,
-                    Resource.MoreInfo_Exception,
-                    HttpContext.TraceIdentifier));
-            }
-        }
-
-        /// <summary>
-        /// Lấy danh sách các tài sản theo chứng từ
-        /// </summary>
-        /// <param name="voucherCode">Số chứng từ</param>
-        /// <param name="limit">Số bản ghi muốn lấy</param>
-        /// <param name="page">Số trang bắt đầu lấy</param>
-        /// <returns>Danh sách các tài sản theo chứng từ</returns>
-        /// Created by: NDDAT (09/11/2022)
-        [HttpGet("voucher")]
-        public IActionResult Voucher([FromQuery] string voucherCode, [FromQuery] int limit, [FromQuery] int page)
-        {
-            try
-            {
-                var filterResponse = _assetBL.Voucher(voucherCode, limit, page);
+                var filterResponse = _assetBL.FilterAssets(keyword, departmentId, categoryId, limit, page, assetIdList, chooseOnly);
                 return StatusCode(StatusCodes.Status200OK, filterResponse);
             }
             catch (Exception ex)

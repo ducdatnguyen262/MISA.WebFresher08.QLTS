@@ -54,6 +54,34 @@ namespace MISA.WebFresher08.QLTS.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Lấy chi tiết chứng từ
+        /// </summary>
+        /// <param name="voucherId">Id chứng từ</param>
+        /// <param name="limit">Số bản ghi muốn lấy</param>
+        /// <param name="page">Số trang bắt đầu lấy</param>
+        /// <returns>Danh sách các tài sản theo chứng từ</returns>
+        /// Created by: NDDAT (09/11/2022)
+        [HttpGet("detail/{voucherId}")]
+        public IActionResult Voucher([FromRoute] Guid voucherId, [FromQuery] int limit, [FromQuery] int page)
+        {
+            try
+            {
+                var filterResponse = _voucherBL.Voucher(voucherId, limit, page);
+                return StatusCode(StatusCodes.Status200OK, filterResponse);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult(
+                    QltsErrorCode.Exception,
+                    Resource.DevMsg_Exception,
+                    Resource.UserMsg_Exception,
+                    Resource.MoreInfo_Exception,
+                    HttpContext.TraceIdentifier));
+            }
+        }
+
         #endregion
     }
 }

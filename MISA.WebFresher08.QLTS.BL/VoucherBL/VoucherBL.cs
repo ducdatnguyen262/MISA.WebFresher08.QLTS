@@ -41,6 +41,19 @@ namespace MISA.WebFresher08.QLTS.BL
             return _voucherDL.FilterVouchers(keyword, limit, page);
         }
 
+        /// <summary>
+        /// Lấy chi tiết chứng từ
+        /// </summary>
+        /// <param name="voucherId">Id chứng từ</param>
+        /// <param name="limit">Số bản ghi muốn lấy</param>
+        /// <param name="page">Số trang bắt đầu lấy</param>
+        /// <returns>Danh sách các tài sản theo chứng từ</returns>
+        /// Created by: NDDAT (09/11/2022)
+        public PagingData<Asset> Voucher(Guid voucherId, int limit, int page)
+        {
+            return _voucherDL.Voucher(voucherId, limit, page);
+        }
+
         #endregion
     }
 }

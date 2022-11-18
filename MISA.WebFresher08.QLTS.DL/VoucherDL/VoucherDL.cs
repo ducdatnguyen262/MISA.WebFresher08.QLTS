@@ -54,5 +54,46 @@ namespace MISA.WebFresher08.QLTS.DL
 
             return filterResponse;
         }
+
+        /// <summary>
+        /// Lấy chi tiết chứng từ
+        /// </summary>
+        /// <param name="voucherId">Id chứng từ</param>
+        /// <param name="limit">Số bản ghi muốn lấy</param>
+        /// <param name="page">Số trang bắt đầu lấy</param>
+        /// <returns>Danh sách các tài sản theo chứng từ</returns>
+        /// Created by: NDDAT (09/11/2022)
+        public PagingData<Asset> Voucher(Guid voucherId, int limit, int page)
+        {
+            // Chuẩn bị tham số đầu vào cho procedure
+            var parameters = new DynamicParameters();
+            parameters.Add("v_voucher_id", voucherId);
+            parameters.Add("v_Offset", (page - 1) * limit);
+            parameters.Add("v_Limit", limit);
+            parameters.Add("v_Sort", "");
+
+            // Khai báo tên prodecure Insert
+            string storedProcedureName = "Proc_voucher_GetDetail";
+
+            // Khởi tạo kết nối tới DB MySQL
+            string connectionString = DataContext.MySqlConnectionString;
+            var filterResponse = new PagingData<Asset>();
+            using (var mysqlConnection = new MySqlConnection(connectionString))
+            {
+                // Thực hiện gọi vào DB để chạy procedure
+                var multiAssets = mysqlConnection.QueryMultiple(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
+
+                // Xử lý dữ liệu trả về
+                var assets = multiAssets.Read<Asset>();
+                var totalCount = multiAssets.Read<long>().Single();
+                var totalCost = multiAssets.Read<long>().Single();
+                var totalDepreciation = multiAssets.Read<long>().Single();
+                var totalRemain = multiAssets.Read<long>().Single();
+
+                filterResponse = new PagingData<Asset>(assets, totalCount, 0, totalCost, totalDepreciation, totalRemain);
+            }
+
+            return filterResponse;
+        }
     }
 }
