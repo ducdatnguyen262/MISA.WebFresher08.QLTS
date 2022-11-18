@@ -32,9 +32,9 @@ namespace MISA.WebFresher08.QLTS.BL
         /// <param name="page">Số trang bắt đầu lấy</param>
         /// <returns>Danh sách các tài sản sau khi chọn lọc và các giá trị khác</returns>
         /// Created by: NDDAT (19/09/2022)
-        public PagingData<Asset> FilterAssets(string? keyword, Guid? departmentId, Guid? categoryId, int limit, int page)
+        public PagingData<Asset> FilterAssets(string? keyword, Guid? departmentId, Guid? categoryId, int limit, int page, List<string> recordIdList, Boolean chooseOnly)
         {
-            return _assetDL.FilterAssets(keyword, departmentId, categoryId, limit, page);
+            return _assetDL.FilterAssets(keyword, departmentId, categoryId, limit, page, recordIdList, chooseOnly);
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace MISA.WebFresher08.QLTS.BL
         /// <returns>Danh sách các tài sản theo chứng từ</returns>
         /// Created by: NDDAT (09/11/2022)
         public PagingData<Asset> Voucher(string voucherCode, int limit, int page) 
-        { 
+        {
             return _assetDL.Voucher(voucherCode, limit, page);
         }
 

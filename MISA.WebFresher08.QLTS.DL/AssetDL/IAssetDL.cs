@@ -14,7 +14,7 @@ namespace MISA.WebFresher08.QLTS.DL
         /// <param name="page">Số trang bắt đầu lấy</param>
         /// <returns>Danh sách các tài sản sau khi chọn lọc và các giá trị khác</returns>
         /// Created by: NDDAT (19/09/2022)
-        public PagingData<Asset> FilterAssets(string? keyword, Guid? departmentId, Guid? categoryId, int limit, int page);
+        public PagingData<Asset> FilterAssets(string? keyword, Guid? departmentId, Guid? categoryId, int limit, int page, List<string> recordIdList, Boolean chooseOnly);
 
         /// <summary>
         /// Lấy danh sách các tài sản theo chứng từ

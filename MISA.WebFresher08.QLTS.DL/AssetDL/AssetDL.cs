@@ -17,7 +17,7 @@ namespace MISA.WebFresher08.QLTS.DL
         /// <param name="page">Số trang bắt đầu lấy</param>
         /// <returns>Danh sách các tài sản sau khi chọn lọc và các giá trị khác</returns>
         /// Created by: NDDAT (19/09/2022)
-        public PagingData<Asset> FilterAssets(string? keyword, Guid? departmentId, Guid? categoryId, int limit, int page)
+        public PagingData<Asset> FilterAssets(string? keyword, Guid? departmentId, Guid? categoryId, int limit, int page, List<string> recordIdList, Boolean chooseOnly)
         {
             // Chuẩn bị tham số đầu vào cho procedure
             var parameters = new DynamicParameters();
@@ -29,6 +29,17 @@ namespace MISA.WebFresher08.QLTS.DL
             if (keyword != null) whereConditions.Add($"(fixed_asset_code LIKE \'%{keyword}%\' OR fixed_asset_name LIKE \'%{keyword}%\')");
             if (departmentId != null) whereConditions.Add($"department_id LIKE \'{departmentId}\'");
             if (categoryId != null) whereConditions.Add($"fixed_asset_category_id LIKE \'{categoryId}\'");
+            if (recordIdList != null) 
+            { 
+                if(chooseOnly)
+                {
+                    whereConditions.Add($"fixed_asset_id IN ('{String.Join("','", recordIdList)}')"); 
+                }
+                else
+                {
+                    whereConditions.Add($"fixed_asset_id NOT IN ('{String.Join("','", recordIdList)}')");
+                }
+            }
             string whereClause = string.Join(" AND ", whereConditions);
 
             parameters.Add("v_Where", whereClause);
@@ -89,8 +100,10 @@ namespace MISA.WebFresher08.QLTS.DL
                 // Xử lý dữ liệu trả về
                 var assets = multiAssets.Read<Asset>();
                 var totalCount = multiAssets.Read<long>().Single();
+                var totalDepreciation = multiAssets.Read<long>().Single();
+                var totalRemain = multiAssets.Read<long>().Single();
 
-                filterResponse = new PagingData<Asset>(assets, totalCount, 0, 0, 0, 0);
+                filterResponse = new PagingData<Asset>(assets, totalCount, 0, 0, totalDepreciation, totalRemain);
             }
 
             return filterResponse;
