@@ -83,6 +83,46 @@ namespace MISA.WebFresher08.QLTS.API.Controllers
         }
 
         /// <summary>
+        /// Thêm nhiều tài sản trong chứng từ
+        /// </summary>
+        /// <param name="voucherId">ID chứng từ đang sửa</param>
+        /// <param name="assetIdList">Danh sách ID các tài sản cần thêm</param>
+        /// <returns>Danh sách ID các tài sản đã thêm</returns>
+        /// Cretaed by: NDDAT (21/11/2022)
+        [HttpPost("detail/batch-add")]
+        public IActionResult AddVoucherDetail(Guid voucherId, List<string> assetIdList)
+        {
+            try
+            {
+                List<string> results = _voucherBL.AddVoucherDetail(voucherId, assetIdList);
+
+                if (results.Count > 0)
+                {
+                    return StatusCode(StatusCodes.Status200OK, results);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
+                        QltsErrorCode.Exception,
+                        Resource.DevMsg_DeleteFailed,
+                        Resource.UserMsg_DeleteFailed,
+                        assetIdList,
+                        HttpContext.TraceIdentifier));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult(
+                    QltsErrorCode.Exception,
+                    Resource.DevMsg_Exception,
+                    Resource.UserMsg_Exception,
+                    Resource.MoreInfo_Exception,
+                    HttpContext.TraceIdentifier));
+            }
+        }
+
+        /// <summary>
         /// Xóa nhiều tài sản trong chứng từ
         /// </summary>
         /// <param name="voucherId">ID chứng từ đang sửa</param>

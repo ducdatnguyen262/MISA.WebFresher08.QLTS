@@ -99,6 +99,54 @@ namespace MISA.WebFresher08.QLTS.DL
         }
 
         /// <summary>
+        /// Thêm nhiều tài sản trong chứng từ
+        /// </summary>
+        /// <param name="voucherId">ID chứng từ đang sửa</param>
+        /// <param name="assetIdList">Danh sách ID các tài sản cần thêm</param>
+        /// <returns>Danh sách ID các tài sản đã thêm</returns>
+        /// Cretaed by: NDDAT (21/11/2022)
+        public List<string> AddVoucherDetail(Guid voucherId, List<string> assetIdList)
+        {
+            string query = "";
+            foreach (var assetId in assetIdList)
+            {
+                if(assetIdList.Last() == assetId) query = query + $"('{Guid.NewGuid()}', '{voucherId}', '{assetId}');";
+                else query = query + $"('{Guid.NewGuid()}', '{voucherId}', '{assetId}'),";
+            }
+
+            // Chuẩn bị tham số đầu vào cho procedure
+            var parameters = new DynamicParameters();
+            parameters.Add("v_add_query", query);
+
+            // Khởi tạo kết nối tới DB MySQL
+            string connectionString = DataContext.MySqlConnectionString;
+            using (var mysqlConnection = new MySqlConnection(connectionString))
+            {
+                // Khai báo tên prodecure
+                string storedProcedureName = "Proc_voucher_BatchAddDetail";
+
+                mysqlConnection.Open();
+
+                // Bắt đầu transaction.
+                using (var transaction = mysqlConnection.BeginTransaction())
+                {
+                    int numberOfAffectedRows = mysqlConnection.Execute(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure, transaction: transaction);
+
+                    if (numberOfAffectedRows == assetIdList.Count)
+                    {
+                        transaction.Commit();
+                        return assetIdList;
+                    }
+                    else
+                    {
+                        transaction.Rollback();
+                        return new List<string>();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Xóa nhiều tài sản trong chứng từ
         /// </summary>
         /// <param name="voucherId">ID chứng từ đang sửa</param>
