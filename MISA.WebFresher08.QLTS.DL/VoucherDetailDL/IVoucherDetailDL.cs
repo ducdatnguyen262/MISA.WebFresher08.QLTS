@@ -9,10 +9,5 @@ namespace MISA.WebFresher08.QLTS.DL.VoucherDetailDL
 {
     public interface IVoucherDetailDL : IBaseDL<VoucherDetail>
     {
-        #region API Insert
-
-
-
-        #endregion
     }
 }

@@ -136,5 +136,15 @@ namespace MISA.WebFresher08.QLTS.Common.Entities
         /// </summary>
         [IsNotNullOrEmpty("Hao mòn năm không được để trống")]
         public double depreciation_year { get; set; }
+
+        /// <summary>
+        /// Nguồn ngân sách tài sản
+        /// </summary>
+        public string budget { get; set; }
+
+        /// <summary>
+        /// Trạng thái ghi tăng
+        /// </summary>
+        public Boolean increment_status { get; set; }
     }
 }

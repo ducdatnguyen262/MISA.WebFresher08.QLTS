@@ -9,10 +9,5 @@ namespace MISA.WebFresher08.QLTS.DL.VoucherDetailDL
 {
     public class VoucherDetailDL : BaseDL<VoucherDetail>, IVoucherDetailDL
     {
-        #region API Insert
-
-
-
-        #endregion
     }
 }

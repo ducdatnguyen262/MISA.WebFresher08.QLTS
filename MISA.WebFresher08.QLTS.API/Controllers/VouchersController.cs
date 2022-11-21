@@ -63,11 +63,11 @@ namespace MISA.WebFresher08.QLTS.API.Controllers
         /// <returns>Danh sách các tài sản theo chứng từ</returns>
         /// Created by: NDDAT (09/11/2022)
         [HttpGet("detail/{voucherId}")]
-        public IActionResult Voucher([FromRoute] Guid voucherId, [FromQuery] int limit, [FromQuery] int page)
+        public IActionResult GetVoucherDetail([FromRoute] Guid voucherId, [FromQuery] int limit, [FromQuery] int page)
         {
             try
             {
-                var filterResponse = _voucherBL.Voucher(voucherId, limit, page);
+                var filterResponse = _voucherBL.GetVoucherDetail(voucherId, limit, page);
                 return StatusCode(StatusCodes.Status200OK, filterResponse);
             }
             catch (Exception ex)
