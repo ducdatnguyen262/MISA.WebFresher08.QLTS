@@ -28,5 +28,14 @@ namespace MISA.WebFresher08.QLTS.BL
         /// <returns>Danh sách các tài sản theo chứng từ</returns>
         /// Created by: NDDAT (09/11/2022)
         public PagingData<Asset> GetVoucherDetail(Guid voucherId, int limit, int page);
+
+        /// <summary>
+        /// Xóa nhiều tài sản trong chứng từ
+        /// </summary>
+        /// <param name="voucherId">ID chứng từ đang sửa</param>
+        /// <param name="assetIdList">Danh sách ID các tài sản cần xóa</param>
+        /// <returns>Danh sách ID các tài sản đã xóa</returns>
+        /// Cretaed by: NDDAT (21/11/2022)
+        public List<string> DeleteVoucherDetail(Guid voucherId, List<string> assetIdList);
     }
 }

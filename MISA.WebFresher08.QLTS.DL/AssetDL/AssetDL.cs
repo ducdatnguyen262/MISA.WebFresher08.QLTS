@@ -44,7 +44,7 @@ namespace MISA.WebFresher08.QLTS.DL
 
             parameters.Add("v_Where", whereClause);
 
-            // Khai báo tên prodecure Insert
+            // Khai báo tên prodecure
             string storedProcedureName = "Proc_asset_GetPaging";
 
             // Khởi tạo kết nối tới DB MySQL

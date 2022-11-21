@@ -1,5 +1,7 @@
 ﻿using Dapper;
+using MISA.WebFresher08.QLTS.Common.Attributes;
 using MISA.WebFresher08.QLTS.Common.Entities;
+using MISA.WebFresher08.QLTS.Common.Resources;
 using MySqlConnector;
 using System;
 using System.Collections.Generic;
@@ -33,7 +35,7 @@ namespace MISA.WebFresher08.QLTS.DL
 
             parameters.Add("v_Where", whereClause);
 
-            // Khai báo tên prodecure Insert
+            // Khai báo tên prodecure
             string storedProcedureName = "Proc_voucher_GetPaging";
 
             // Khởi tạo kết nối tới DB MySQL
@@ -72,7 +74,7 @@ namespace MISA.WebFresher08.QLTS.DL
             parameters.Add("v_Limit", limit);
             parameters.Add("v_Sort", "");
 
-            // Khai báo tên prodecure Insert
+            // Khai báo tên prodecure
             string storedProcedureName = "Proc_voucher_GetDetail";
 
             // Khởi tạo kết nối tới DB MySQL
@@ -94,6 +96,48 @@ namespace MISA.WebFresher08.QLTS.DL
             }
 
             return filterResponse;
+        }
+
+        /// <summary>
+        /// Xóa nhiều tài sản trong chứng từ
+        /// </summary>
+        /// <param name="voucherId">ID chứng từ đang sửa</param>
+        /// <param name="assetIdList">Danh sách ID các tài sản cần xóa</param>
+        /// <returns>Danh sách ID các tài sản đã xóa</returns>
+        /// Cretaed by: NDDAT (21/11/2022)
+        public List<string> DeleteVoucherDetail(Guid voucherId, List<string> assetIdList)
+        {
+            // Chuẩn bị tham số đầu vào cho procedure
+            var parameters = new DynamicParameters();
+            parameters.Add("v_voucher_id", voucherId);
+            parameters.Add($"v_asset_ids", $"'{String.Join("','", assetIdList)}'");
+
+            // Khởi tạo kết nối tới DB MySQL
+            string connectionString = DataContext.MySqlConnectionString;
+            using (var mysqlConnection = new MySqlConnection(connectionString))
+            {
+                // Khai báo tên prodecure
+                string storedProcedureName = "Proc_voucher_BatchDeleteDetail";
+
+                mysqlConnection.Open();
+
+                // Bắt đầu transaction.
+                using (var transaction = mysqlConnection.BeginTransaction())
+                {
+                    int numberOfAffectedRows = mysqlConnection.Execute(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure, transaction: transaction);
+
+                    if (numberOfAffectedRows == assetIdList.Count)
+                    {
+                        transaction.Commit();
+                        return assetIdList;
+                    }
+                    else
+                    {
+                        transaction.Rollback();
+                        return new List<string>();
+                    }
+                }
+            }
         }
     }
 }

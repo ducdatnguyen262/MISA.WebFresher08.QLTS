@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MISA.WebFresher08.QLTS.DL
+namespace MISA.WebFresher08.QLTS.BL
 {
-    public interface IVoucherDetailDL : IBaseDL<VoucherDetail>
+    public interface IVoucherDetailBL : IBaseBL<VoucherDetail>
     {
     }
 }

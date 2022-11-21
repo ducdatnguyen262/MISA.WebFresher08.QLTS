@@ -68,7 +68,7 @@ namespace MISA.WebFresher08.QLTS.DL
             T record;
             using (var mysqlConnection = new MySqlConnection(connectionString))
             {
-                // Khai báo tên prodecure Insert
+                // Khai báo tên prodecure
                 string storedProcedureName = String.Format(Resource.Proc_Select, typeof(T).Name);
 
                 // Thực hiện gọi vào DB để chạy procedure
@@ -103,7 +103,7 @@ namespace MISA.WebFresher08.QLTS.DL
             PagingData<T> recordsData = new PagingData<T>();
             using (var mysqlConnection = new MySqlConnection(connectionString))
             {
-                // Khai báo tên prodecure Insert
+                // Khai báo tên prodecure
                 string storedProcedureName = String.Format(Resource.Proc_GetPaging, typeof(T).Name);
 
                 // Thực hiện gọi vào DB để chạy procedure
@@ -154,7 +154,7 @@ namespace MISA.WebFresher08.QLTS.DL
             int numberOfAffectedRows = 0;
             using (var mysqlConnection = new MySqlConnection(connectionString))
             {
-                // Khai báo tên prodecure Insert
+                // Khai báo tên prodecure
                 string storedProcedureName = String.Format(Resource.Proc_Add, typeof(T).Name);
 
                 // Thực hiện gọi vào DB để chạy procedure
@@ -209,7 +209,7 @@ namespace MISA.WebFresher08.QLTS.DL
             int numberOfAffectedRows = 0;
             using (var mysqlConnection = new MySqlConnection(connectionString))
             {
-                // Khai báo tên prodecure Insert
+                // Khai báo tên prodecure
                 string storedProcedureName = String.Format(Resource.Proc_Update, typeof(T).Name);
 
                 // Thực hiện gọi vào DB để chạy procedure
@@ -256,7 +256,7 @@ namespace MISA.WebFresher08.QLTS.DL
             int numberOfAffectedRows = 0;
             using (var mysqlConnection = new MySqlConnection(connectionString))
             {
-                // Khai báo tên prodecure Insert
+                // Khai báo tên prodecure
                 string storedProcedureName = String.Format(Resource.Proc_Delete, typeof(T).Name);
 
                 // Thực hiện gọi vào DB để chạy procedure
@@ -375,7 +375,7 @@ namespace MISA.WebFresher08.QLTS.DL
         /// Cretaed by: NDDAT (01/10/2022)
         public string NextCode()
         {
-            // Khai báo tên prodecure Insert
+            // Khai báo tên prodecure
             string storedProcedureName = String.Format(Resource.Proc_GetNextCode, typeof(T).Name);
 
             // Khởi tạo kết nối tới DB MySQL
