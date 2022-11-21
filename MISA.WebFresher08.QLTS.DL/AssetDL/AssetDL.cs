@@ -1,7 +1,7 @@
 ﻿using MISA.WebFresher08.QLTS.Common.Entities;
 using Dapper;
 using MySqlConnector;
-
+using MISA.WebFresher08.QLTS.Common.Enums;
 
 namespace MISA.WebFresher08.QLTS.DL
 {
@@ -17,7 +17,7 @@ namespace MISA.WebFresher08.QLTS.DL
         /// <param name="page">Số trang bắt đầu lấy</param>
         /// <returns>Danh sách các tài sản sau khi chọn lọc và các giá trị khác</returns>
         /// Created by: NDDAT (19/09/2022)
-        public PagingData<Asset> FilterAssets(string? keyword, Guid? departmentId, Guid? categoryId, int limit, int page, List<string> assetIdList, Boolean chooseOnly)
+        public PagingData<Asset> FilterAssets(string? keyword, Guid? departmentId, Guid? categoryId, int limit, int page, List<string> assetIdList, int mode)
         {
             // Chuẩn bị tham số đầu vào cho procedure
             var parameters = new DynamicParameters();
@@ -31,9 +31,13 @@ namespace MISA.WebFresher08.QLTS.DL
             if (categoryId != null) whereConditions.Add($"fixed_asset_category_id LIKE \'{categoryId}\'");
             if (assetIdList != null) 
             { 
-                if(chooseOnly)
+                if(mode == (int)GetRecordMode.Selected)
                 {
                     whereConditions.Add($"fixed_asset_id IN ('{String.Join("','", assetIdList)}')"); 
+                }
+                else if(mode == (int)GetRecordMode.NotSelectedNotIncrement)
+                {
+                    whereConditions.Add($"fixed_asset_id NOT IN ('{String.Join("','", assetIdList)}') AND increment_status = 0");
                 }
                 else
                 {

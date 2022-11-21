@@ -44,11 +44,11 @@ namespace MISA.WebFresher08.QLTS.API
         /// <returns>Danh sách các tài sản sau khi chọn lọc và các giá trị khác</returns>
         /// Created by: NDDAT (19/09/2022)
         [HttpPost("filters")]
-        public IActionResult FilterAssets([FromQuery] string? keyword, [FromQuery] Guid? departmentId, [FromQuery] Guid? categoryId, [FromQuery] int limit, [FromQuery] int page, [FromBody] List<string> assetIdList, [FromQuery] Boolean chooseOnly)
+        public IActionResult FilterAssets([FromQuery] string? keyword, [FromQuery] Guid? departmentId, [FromQuery] Guid? categoryId, [FromQuery] int limit, [FromQuery] int page, [FromBody] List<string> assetIdList, [FromQuery] int mode)
         {
             try
             {
-                var filterResponse = _assetBL.FilterAssets(keyword, departmentId, categoryId, limit, page, assetIdList, chooseOnly);
+                var filterResponse = _assetBL.FilterAssets(keyword, departmentId, categoryId, limit, page, assetIdList, mode);
                 return StatusCode(StatusCodes.Status200OK, filterResponse);
             }
             catch (Exception ex)

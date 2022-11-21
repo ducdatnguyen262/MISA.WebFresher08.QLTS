@@ -32,9 +32,9 @@ namespace MISA.WebFresher08.QLTS.BL
         /// <param name="page">Số trang bắt đầu lấy</param>
         /// <returns>Danh sách các tài sản sau khi chọn lọc và các giá trị khác</returns>
         /// Created by: NDDAT (19/09/2022)
-        public PagingData<Asset> FilterAssets(string? keyword, Guid? departmentId, Guid? categoryId, int limit, int page, List<string> assetIdList, Boolean chooseOnly)
+        public PagingData<Asset> FilterAssets(string? keyword, Guid? departmentId, Guid? categoryId, int limit, int page, List<string> assetIdList, int mode)
         {
-            return _assetDL.FilterAssets(keyword, departmentId, categoryId, limit, page, assetIdList, chooseOnly);
+            return _assetDL.FilterAssets(keyword, departmentId, categoryId, limit, page, assetIdList, mode);
         }
 
         #endregion
