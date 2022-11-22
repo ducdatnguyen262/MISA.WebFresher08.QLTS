@@ -140,6 +140,7 @@ namespace MISA.WebFresher08.QLTS.Common.Entities
         /// <summary>
         /// Nguồn ngân sách tài sản
         /// </summary>
+        [IsNotNullOrEmpty("Nguồn ngân sách không được để trống")]
         public string budget { get; set; }
 
         /// <summary>

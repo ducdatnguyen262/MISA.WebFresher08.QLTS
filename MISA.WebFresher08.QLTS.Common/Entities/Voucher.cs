@@ -21,16 +21,20 @@ namespace MISA.WebFresher08.QLTS.Common.Entities
         /// <summary>
         /// Số chứng từ
         /// </summary>
+        [IsNotNullOrEmpty("Mã chứng từ không được để trống")]
+        [IsNotDuplicate("Mã chứng từ không được trùng")]
         public string voucher_code { get; set; }
 
         /// <summary>
         /// Ngày chứng từ
         /// </summary>
+        [IsNotNullOrEmpty("Ngày chứng từ không được để trống")]
         public DateTime voucher_date { get; set; }
 
         /// <summary>
         /// Ngày ghi tăng
         /// </summary>
+        [IsNotNullOrEmpty("Ngày ghi tăng không được để trống")]
         public DateTime increment_date { get; set; }
 
         /// <summary>
