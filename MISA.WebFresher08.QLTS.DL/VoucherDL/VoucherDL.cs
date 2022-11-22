@@ -117,6 +117,7 @@ namespace MISA.WebFresher08.QLTS.DL
             // Chuẩn bị tham số đầu vào cho procedure
             var parameters = new DynamicParameters();
             parameters.Add("v_add_query", query);
+            parameters.Add($"v_asset_ids", $"'{String.Join("','", assetIdList)}'");
 
             // Khởi tạo kết nối tới DB MySQL
             string connectionString = DataContext.MySqlConnectionString;
@@ -132,7 +133,7 @@ namespace MISA.WebFresher08.QLTS.DL
                 {
                     int numberOfAffectedRows = mysqlConnection.Execute(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure, transaction: transaction);
 
-                    if (numberOfAffectedRows == assetIdList.Count)
+                    if (numberOfAffectedRows/2 == assetIdList.Count)
                     {
                         transaction.Commit();
                         return assetIdList;
@@ -174,7 +175,7 @@ namespace MISA.WebFresher08.QLTS.DL
                 {
                     int numberOfAffectedRows = mysqlConnection.Execute(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure, transaction: transaction);
 
-                    if (numberOfAffectedRows == assetIdList.Count)
+                    if (numberOfAffectedRows/2 == assetIdList.Count)
                     {
                         transaction.Commit();
                         return assetIdList;
