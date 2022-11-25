@@ -11,6 +11,8 @@ using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 using MISA.WebFresher08.QLTS.BL;
 using MISA.WebFresher08.QLTS.API.Controllers;
 using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
 
 namespace MISA.WebFresher08.QLTS.API
 {
@@ -50,6 +52,48 @@ namespace MISA.WebFresher08.QLTS.API
             {
                 var filterResponse = _assetBL.FilterAssets(keyword, departmentId, categoryId, limit, page, assetIdList, mode);
                 return StatusCode(StatusCodes.Status200OK, filterResponse);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult(
+                    QltsErrorCode.Exception,
+                    Resource.DevMsg_Exception,
+                    Resource.UserMsg_Exception,
+                    Resource.MoreInfo_Exception,
+                    HttpContext.TraceIdentifier));
+            }
+        }
+
+        /// <summary>
+        /// Kiểm tra tài sản đã ghi tăng chưa
+        /// </summary>
+        /// <param name="assetId">Mã tài sản cần kiểm tra</param>
+        /// <returns>Mã chứng từ nếu đã ghi tăng</returns>
+        /// Created by: NDDAT (24/11/2022)
+        [HttpGet("checkIncrement/{assetId}")]
+        public IActionResult CheckIncrement([FromRoute] Guid assetId)
+        {
+            try
+            {
+                string voucherCode = _assetBL.CheckIncrement(assetId);
+                // Xử lý dữ liệu trả về
+                if (voucherCode != "")
+                {
+                    return StatusCode(StatusCodes.Status200OK, new NextCode()
+                    {
+                        Code = voucherCode,
+                    });
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
+                        QltsErrorCode.UpdateFailed,
+                        Resource.DevMsg_UpdateFailed,
+                        Resource.UserMsg_UpdateFailed,
+                        Resource.MoreInfo_UpdateFailed,
+                        HttpContext.TraceIdentifier));
+                }
             }
             catch (Exception ex)
             {

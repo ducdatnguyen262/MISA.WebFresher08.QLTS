@@ -72,5 +72,32 @@ namespace MISA.WebFresher08.QLTS.DL
 
             return filterResponse;
         }
+
+        /// <summary>
+        /// Kiểm tra tài sản đã ghi tăng chưa
+        /// </summary>
+        /// <param name="assetId">Mã tài sản cần kiểm tra</param>
+        /// <returns>Mã chứng từ nếu đã ghi tăng</returns>
+        /// Created by: NDDAT (24/11/2022)
+        public string CheckIncrement(Guid assetId)
+        {
+            // Chuẩn bị tham số đầu vào cho procedure
+            var parameters = new DynamicParameters();
+            //parameters.Add("v_fixed_asset_id", $"\'%{assetId}\'");
+            parameters.Add("v_fixed_asset_id", assetId);
+
+            // Khai báo tên procedure
+            string storedProcedureName = "Proc_asset_CheckIncrement";
+
+            // Khởi tạo kết nối tới DB MySQ
+            string connectionString = DataContext.MySqlConnectionString;
+            string voucherCode;
+            using(var mysqlConnection = new MySqlConnection(connectionString))
+            {
+                voucherCode = mysqlConnection.QueryFirstOrDefault<string>(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
+            }
+            if (voucherCode != null) return voucherCode;
+            else return "-1";
+        }
     }
 }

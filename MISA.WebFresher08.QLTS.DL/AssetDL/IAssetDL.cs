@@ -15,5 +15,13 @@ namespace MISA.WebFresher08.QLTS.DL
         /// <returns>Danh sách các tài sản sau khi chọn lọc và các giá trị khác</returns>
         /// Created by: NDDAT (19/09/2022)
         public PagingData<Asset> FilterAssets(string? keyword, Guid? departmentId, Guid? categoryId, int limit, int page, List<string> assetIdList, int mode);
+
+        /// <summary>
+        /// Kiểm tra tài sản đã ghi tăng chưa
+        /// </summary>
+        /// <param name="assetId">Mã tài sản cần kiểm tra</param>
+        /// <returns>Mã chứng từ nếu đã ghi tăng</returns>
+        /// Created by: NDDAT (24/11/2022)
+        public string CheckIncrement(Guid assetId);
     }
 }

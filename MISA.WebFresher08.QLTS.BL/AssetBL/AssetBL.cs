@@ -37,6 +37,17 @@ namespace MISA.WebFresher08.QLTS.BL
             return _assetDL.FilterAssets(keyword, departmentId, categoryId, limit, page, assetIdList, mode);
         }
 
+        /// <summary>
+        /// Kiểm tra tài sản đã ghi tăng chưa
+        /// </summary>
+        /// <param name="assetId">Mã tài sản cần kiểm tra</param>
+        /// <returns>Mã chứng từ nếu đã ghi tăng</returns>
+        /// Created by: NDDAT (24/11/2022)
+        public string CheckIncrement(Guid assetId)
+        {
+            return _assetDL.CheckIncrement(assetId);
+        }
+
         #endregion
     }
 }

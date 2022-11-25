@@ -1,7 +1,9 @@
 ﻿using Dapper;
 using MISA.WebFresher08.QLTS.Common.Attributes;
 using MISA.WebFresher08.QLTS.Common.Entities;
+using MISA.WebFresher08.QLTS.Common.Enums;
 using MISA.WebFresher08.QLTS.Common.Resources;
+using MISA.WebFresher08.QLTS.DL.DepartmentDL;
 using MySqlConnector;
 using System;
 using System.Collections.Generic;
@@ -65,7 +67,7 @@ namespace MISA.WebFresher08.QLTS.DL
         /// <param name="page">Số trang bắt đầu lấy</param>
         /// <returns>Danh sách các tài sản theo chứng từ</returns>
         /// Created by: NDDAT (09/11/2022)
-        public PagingData<Asset> GetVoucherDetail(Guid voucherId, int limit, int page)
+        public PagingData<Asset> GetVoucherDetail(string? keyword, Guid voucherId, int limit, int page)
         {
             // Chuẩn bị tham số đầu vào cho procedure
             var parameters = new DynamicParameters();
@@ -73,6 +75,12 @@ namespace MISA.WebFresher08.QLTS.DL
             parameters.Add("v_Offset", (page - 1) * limit);
             parameters.Add("v_Limit", limit);
             parameters.Add("v_Sort", "");
+
+            var whereConditions = new List<string>();
+            if (keyword != null) whereConditions.Add($"(fa.fixed_asset_code LIKE \'%{keyword}%\' OR fa.fixed_asset_name LIKE \'%{keyword}%\')");
+            string whereClause = string.Join(" AND ", whereConditions);
+
+            parameters.Add("v_Where", whereClause);
 
             // Khai báo tên prodecure
             string storedProcedureName = "Proc_voucher_GetDetail";
