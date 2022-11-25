@@ -10,6 +10,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.Versioning;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -308,7 +309,7 @@ namespace MISA.WebFresher08.QLTS.DL
                 {
                     var parameters = new DynamicParameters();
                     parameters.Add($"v_{propertyName}s", $"'{String.Join("','", recordIdList)}'" );
-                    int numberOfAffectedRows = mysqlConnection.Execute(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure, transaction: transaction);
+                    int numberOfAffectedRows = mysqlConnection.QueryFirstOrDefault<int>(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure, transaction: transaction);
 
                     if (numberOfAffectedRows == recordIdList.Count)
                     {
