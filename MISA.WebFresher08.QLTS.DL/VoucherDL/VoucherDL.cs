@@ -139,17 +139,24 @@ namespace MISA.WebFresher08.QLTS.DL
                 // Bắt đầu transaction.
                 using (var transaction = mysqlConnection.BeginTransaction())
                 {
-                    int numberOfAffectedRows = mysqlConnection.Execute(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure, transaction: transaction);
+                    try
+                    {
+                        int numberOfAffectedRows = mysqlConnection.Execute(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure, transaction: transaction);
 
-                    if (numberOfAffectedRows/2 == assetIdList.Count)
-                    {
-                        transaction.Commit();
-                        return assetIdList;
+                        if (numberOfAffectedRows / 2 == assetIdList.Count)
+                        {
+                            transaction.Commit();
+                            return assetIdList;
+                        }
+                        else
+                        {
+                            transaction.Rollback();
+                            return new List<string>();
+                        }
                     }
-                    else
+                    finally
                     {
-                        transaction.Rollback();
-                        return new List<string>();
+                        mysqlConnection.Close();
                     }
                 }
             }
@@ -181,17 +188,24 @@ namespace MISA.WebFresher08.QLTS.DL
                 // Bắt đầu transaction.
                 using (var transaction = mysqlConnection.BeginTransaction())
                 {
-                    int numberOfAffectedRows = mysqlConnection.Execute(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure, transaction: transaction);
+                    try
+                    {
+                        int numberOfAffectedRows = mysqlConnection.Execute(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure, transaction: transaction);
 
-                    if (numberOfAffectedRows/2 == assetIdList.Count)
-                    {
-                        transaction.Commit();
-                        return assetIdList;
+                        if (numberOfAffectedRows / 2 == assetIdList.Count)
+                        {
+                            transaction.Commit();
+                            return assetIdList;
+                        }
+                        else
+                        {
+                            transaction.Rollback();
+                            return new List<string>();
+                        }
                     }
-                    else
-                    {
-                        transaction.Rollback();
-                        return new List<string>();
+                    finally 
+                    { 
+                        mysqlConnection.Close(); 
                     }
                 }
             }

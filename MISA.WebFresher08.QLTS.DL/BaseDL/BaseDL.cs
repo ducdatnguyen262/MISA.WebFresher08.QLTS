@@ -307,19 +307,26 @@ namespace MISA.WebFresher08.QLTS.DL
                 // Bắt đầu transaction.
                 using (var transaction = mysqlConnection.BeginTransaction())
                 {
-                    var parameters = new DynamicParameters();
-                    parameters.Add($"v_{propertyName}s", $"'{String.Join("','", recordIdList)}'" );
-                    int numberOfAffectedRows = mysqlConnection.QueryFirstOrDefault<int>(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure, transaction: transaction);
+                    try
+                    {
+                        var parameters = new DynamicParameters();
+                        parameters.Add($"v_{propertyName}s", $"'{String.Join("','", recordIdList)}'" );
+                        int numberOfAffectedRows = mysqlConnection.QueryFirstOrDefault<int>(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure, transaction: transaction);
 
-                    if (numberOfAffectedRows == recordIdList.Count)
-                    {
-                        transaction.Commit();
-                        return recordIdList;
+                        if (numberOfAffectedRows == recordIdList.Count)
+                        {
+                            transaction.Commit();
+                            return recordIdList;
+                        }
+                        else
+                        {
+                            transaction.Rollback();
+                            return new List<string>();
+                        }
                     }
-                    else
+                    finally
                     {
-                        transaction.Rollback();
-                        return new List<string>();
+                        mysqlConnection.Close();
                     }
                 }
             }
