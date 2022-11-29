@@ -1,6 +1,5 @@
 ﻿using MISA.WebFresher08.QLTS.Common.Entities;
 using MISA.WebFresher08.QLTS.DL;
-using MISA.WebFresher08.QLTS.DL;
 using System;
 using System.Collections.Generic;
 using System.Linq;

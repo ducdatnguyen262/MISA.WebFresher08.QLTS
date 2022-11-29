@@ -11,7 +11,7 @@ namespace MISA.WebFresher08.QLTS.BL
 
         #endregion
 
-        #region Constructer
+        #region Constructor
 
         public AssetBL (IAssetDL assetDL) : base(assetDL)
         {

@@ -97,6 +97,15 @@ namespace MISA.WebFresher08.QLTS.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User not found.
+        /// </summary>
+        public static string DevMsg_LoginFailed {
+            get {
+                return ResourceManager.GetString("DevMsg_LoginFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select from database return 0.
         /// </summary>
         public static string DevMsg_SelectFailed {
@@ -291,6 +300,15 @@ namespace MISA.WebFresher08.QLTS.Common.Resources {
         public static string UserMsg_InsertFailed {
             get {
                 return ResourceManager.GetString("UserMsg_InsertFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sai thông tin đăng nhập.
+        /// </summary>
+        public static string UserMsg_LoginFailed {
+            get {
+                return ResourceManager.GetString("UserMsg_LoginFailed", resourceCulture);
             }
         }
         

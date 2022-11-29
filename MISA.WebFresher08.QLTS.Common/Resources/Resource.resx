@@ -133,6 +133,10 @@
     <value>Insert to database return 0</value>
     <comment>Message cho dev đọc khi Insert bản ghi vào database thất bại</comment>
   </data>
+  <data name="DevMsg_LoginFailed" xml:space="preserve">
+    <value>User not found</value>
+    <comment>Message cho dev đọc khi login thất bại</comment>
+  </data>
   <data name="DevMsg_SelectFailed" xml:space="preserve">
     <value>Select from database return 0</value>
     <comment>Message cho dev đọc khi Select bản ghi trong database thất bại</comment>
@@ -220,6 +224,10 @@
   <data name="UserMsg_InsertFailed" xml:space="preserve">
     <value>Thêm mới bản ghi thất bại</value>
     <comment>Message cho user đọc khi Insert bản ghi vào database thất bại</comment>
+  </data>
+  <data name="UserMsg_LoginFailed" xml:space="preserve">
+    <value>Sai thông tin đăng nhập</value>
+    <comment>Message cho user đọc khi login thất bại</comment>
   </data>
   <data name="UserMsg_SelectFailed" xml:space="preserve">
     <value>Đọc bản ghi thất bại</value>

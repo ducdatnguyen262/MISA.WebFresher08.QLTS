@@ -1,4 +1,6 @@
 ﻿using Dapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MISA.WebFresher08.QLTS.BL;
@@ -9,6 +11,7 @@ using MySqlConnector;
 
 namespace MISA.WebFresher08.QLTS.API.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class CategoriesController : BasesController<Category>
     {
         #region Constructor

@@ -83,7 +83,6 @@ namespace MISA.WebFresher08.QLTS.DL
         {
             // Chuẩn bị tham số đầu vào cho procedure
             var parameters = new DynamicParameters();
-            //parameters.Add("v_fixed_asset_id", $"\'%{assetId}\'");
             parameters.Add("v_fixed_asset_id", assetId);
 
             // Khai báo tên procedure

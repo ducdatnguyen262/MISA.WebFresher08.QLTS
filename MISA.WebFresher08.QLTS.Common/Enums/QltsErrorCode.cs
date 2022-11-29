@@ -44,5 +44,10 @@
         /// Thông tin nhập vào không hợp lệ
         /// </summary>
         InvalidInput = 8,
+
+        /// <summary>
+        /// Đăng nhập thất bại
+        /// </summary>
+        LoginFailed = 8,
     }
 }

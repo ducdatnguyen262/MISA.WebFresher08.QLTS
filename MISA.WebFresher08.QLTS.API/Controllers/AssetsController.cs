@@ -13,9 +13,12 @@ using MISA.WebFresher08.QLTS.API.Controllers;
 using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace MISA.WebFresher08.QLTS.API
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class AssetsController : BasesController<Asset>
     {
         #region Field
