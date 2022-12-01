@@ -22,7 +22,7 @@ namespace MISA.WebFresher08.QLTS.Common.Entities
         /// Số chứng từ
         /// </summary>
         [IsNotNullOrEmpty("Mã chứng từ không được để trống")]
-        [IsNotDuplicate("Mã chứng từ không được trùng")]
+        [IsNotDuplicate("Mã chứng từ không được trùng.")]
         public string voucher_code { get; set; }
 
         /// <summary>
